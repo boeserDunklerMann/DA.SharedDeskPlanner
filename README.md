@@ -5,9 +5,9 @@ English version see below
 
 # Einführung
 In Zeiten von Shared Desks ist es sinnvoll ein Raumplanungstool zu haben. D.h. wer bucht wann welchen Raum bzw. desk.
-## Platforms
+## Platforms, Dependencies
 * .Net 10
-
+* MySQL.EntityFrameworkCore 10.0.1
 # Ziel
 Ziel ist es, eine Blazor-Web-App zu erstellen, mit welcher der User einen Raum/Desk buchen kann.
 # Realisierung
