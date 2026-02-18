@@ -10,6 +10,11 @@ namespace DA.SharedDeskPlanner.Model
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 	public class Desk : BaseModel
 	{
+		/// <summary>
+		/// like "Höhenverstellbar"
+		/// </summary>
+		public string? Remarks { get; set; }
+
 		public override bool Equals(object? obj)
 		{
 			if (obj == null || !(obj is Desk)) return false;
@@ -20,7 +25,8 @@ namespace DA.SharedDeskPlanner.Model
 			return ID.GetHashCode();
 		}
 
-		public virtual ICollection<InventoryItem> Inventory { get;set;  }
+		public virtual ICollection<InventoryItem> Inventory { get; set; }
+		public virtual Room Room { get; set; }
 	}
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 }
