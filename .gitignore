@@ -306,3 +306,4 @@ Testing Apps/
 
 # Draw.IO backup files
 .$*
+/DA.SharedDeskPlanner.Cons.Test/Program.cs
