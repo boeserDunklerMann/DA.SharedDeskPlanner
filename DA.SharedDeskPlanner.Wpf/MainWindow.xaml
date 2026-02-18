@@ -14,14 +14,54 @@
 		<Ribbon DockPanel.Dock="Top" Title="Menüband" x:Name="rbnMain" SelectionChanged="rbnMain_SelectionChanged">
 			<Ribbon.ApplicationMenu>
 				<RibbonApplicationMenu KeyTip="M">
-					<RibbonApplicationMenuItem ImageSource="TODO" Header="Speichern" KeyTip="S" Command="{Binding SaveChanges}"/>
+					<RibbonApplicationMenuItem ImageSource="/img/save-file-icon-7.png" Header="Speichern" KeyTip="S" Command="{Binding SaveChanges}"/>
 				</RibbonApplicationMenu>
 			</Ribbon.ApplicationMenu>
 			<Ribbon.QuickAccessToolBar>
 				<RibbonQuickAccessToolBar>
-					<RibbonButton SmallImageSource="TODO" KeyTip="S" Command="{Binding SaveChanges}"/>
+					<RibbonButton SmallImageSource="/img/save-file-icon-7.png" KeyTip="S" Command="{Binding SaveChanges}"/>
 				</RibbonQuickAccessToolBar>
 			</Ribbon.QuickAccessToolBar>
+			<RibbonTab Header="Start"><!--0-->
+				<RibbonGroup Header="Einstellungen">
+					<StackPanel Orientation="Vertical" Margin="5">
+						<StackPanel Orientation="Horizontal">
+							<Label>Connection String</Label>
+							<TextBox>
+								<TextBox.Text>
+									<Binding Path="ConnString">
+									</Binding>
+								</TextBox.Text>
+								<TextBox.Width>100</TextBox.Width>
+							</TextBox>
+						</StackPanel>
+						<Button Command="{Binding ChangeConnString}">OK</Button>
+					</StackPanel>
+				</RibbonGroup>
+			</RibbonTab>
+			<RibbonTab Header="Stammdaten"><!--1-->
+				
+			</RibbonTab>
+			<RibbonTab Header="User"><!--2-->
+				<RibbonGroup Header="Einstellungen">
+					<StackPanel Orientation="Vertical" Margin="5">
+						<StackPanel Orientation="Horizontal">
+							<Label>Connection String</Label>
+							<TextBox>
+								<TextBox.Text>
+									<Binding Path="ConnString">
+									</Binding>
+								</TextBox.Text>
+								<TextBox.Width>100</TextBox.Width>
+							</TextBox>
+						</StackPanel>
+						<Button Command="{Binding ChangeConnString}">OK</Button>
+					</StackPanel>
+				</RibbonGroup>
+			</RibbonTab>
+			<RibbonTab Header="Räume"/><!--3-->
+			<RibbonTab Header="Schreibtische"/><!--4-->
 		</Ribbon>
+		<Grid DockPanel.Dock="Top" x:Name="grdMain"/>
 	</DockPanel>
 </RibbonWindow>

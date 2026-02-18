@@ -9,7 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\save-file-icon-7.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DA.SharedDeskPlanner.Model\DA.SharedDeskPlanner.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\save-file-icon-7.png" />
   </ItemGroup>
 
 </Project>
