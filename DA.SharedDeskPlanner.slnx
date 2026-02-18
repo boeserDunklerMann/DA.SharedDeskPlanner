@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="DA.SharedDeskPlanner.Cons.Test/DA.SharedDeskPlanner.Cons.Test.csproj" Id="88d8bae0-e771-4d41-89d9-4bd2e359e2ad" />
   <Project Path="DA.SharedDeskPlanner.Model/DA.SharedDeskPlanner.Model.csproj" Id="8187912f-37ce-4314-b7be-61621712f3bf" />
 </Solution>

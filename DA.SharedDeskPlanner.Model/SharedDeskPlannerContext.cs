@@ -3,7 +3,7 @@
 namespace DA.SharedDeskPlanner.Model
 {
 	/// <ChangeLog>
-	/// <Create Datum="24.04.2025" Entwickler="DA" />
+	/// <Create Datum="18.02.2026" Entwickler="DA" />
 	/// </ChangeLog>
 	public class SharedDeskPlannerContext(string connectionString) : DbContext
 	{
