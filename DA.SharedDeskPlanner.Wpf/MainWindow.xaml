@@ -1,0 +1,27 @@
+﻿<RibbonWindow x:Class="DA.SharedDeskPlanner.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DA.SharedDeskPlanner.Wpf"
+		xmlns:vm="clr-namespace:DA.SharedDeskPlanner.Wpf.MVVM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+	<RibbonWindow.DataContext>
+		<vm:MainWindowViewModel/>
+	</RibbonWindow.DataContext>
+	<DockPanel LastChildFill="True">
+		<Ribbon DockPanel.Dock="Top" Title="Menüband" x:Name="rbnMain" SelectionChanged="rbnMain_SelectionChanged">
+			<Ribbon.ApplicationMenu>
+				<RibbonApplicationMenu KeyTip="M">
+					<RibbonApplicationMenuItem ImageSource="TODO" Header="Speichern" KeyTip="S" Command="{Binding SaveChanges}"/>
+				</RibbonApplicationMenu>
+			</Ribbon.ApplicationMenu>
+			<Ribbon.QuickAccessToolBar>
+				<RibbonQuickAccessToolBar>
+					<RibbonButton SmallImageSource="TODO" KeyTip="S" Command="{Binding SaveChanges}"/>
+				</RibbonQuickAccessToolBar>
+			</Ribbon.QuickAccessToolBar>
+		</Ribbon>
+	</DockPanel>
+</RibbonWindow>

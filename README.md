@@ -19,6 +19,8 @@ Zur Administration (Stammdatenpflege, etc.) soll eine WPF Anwendung erstellt wer
 Für den Benutzer, den Desk-Bucher, soll eine Blazor-Web-App erstellt werden.
 ## Code Projects
 ### DA.SharedDeskPlanner.Model
+### DA.SharedDeskPlanner.Wpf
+
 Enthält das Datenmodell
 # Bemerkungen
 1. alle Zeiten in UTC
