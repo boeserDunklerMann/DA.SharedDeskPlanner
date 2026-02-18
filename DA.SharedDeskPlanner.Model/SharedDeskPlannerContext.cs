@@ -43,6 +43,13 @@ namespace DA.SharedDeskPlanner.Model
 				entity.HasKey(d => d.ID);
 				entity.Property(d => d.Name).IsRequired();
 				entity.HasOne(d => d.Room).WithMany(r => r.Desks);
+				entity.HasMany(d => d.Inventory).WithOne(ii => ii.Desk);
+			});
+			modelBuilder.Entity<InventoryItem>(entity =>
+			{
+				entity.HasKey(ii => ii.ID);
+				entity.Property(ii => ii.Name).IsRequired();
+				//entity.HasOne(ii => ii.Desk).WithMany(d => d.Inventory);
 			});
 		}
 	}

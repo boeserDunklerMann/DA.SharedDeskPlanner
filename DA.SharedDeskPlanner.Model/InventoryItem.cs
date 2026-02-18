@@ -6,6 +6,7 @@
 	/// <summary>
 	/// Items that belongs to a desk, like mouse, port-replicator, monitor, ...
 	/// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 	public class InventoryItem : BaseModel
 	{
 		public override bool Equals(object? obj)
@@ -17,5 +18,8 @@
 		{
 			return ID.GetHashCode();
 		}
+
+		public virtual Desk? Desk { get; set; }
 	}
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 }
