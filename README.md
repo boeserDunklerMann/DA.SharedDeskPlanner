@@ -26,6 +26,7 @@ Enthält das Datenmodell
 1. alle Zeiten in UTC
 # Dokumentationen
 1. https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework-core-example.html
+1. https://stackoverflow.com/questions/59909207/cannot-add-appsettings-json-inside-wpf-project-net-core-3-0
 
 ***
 

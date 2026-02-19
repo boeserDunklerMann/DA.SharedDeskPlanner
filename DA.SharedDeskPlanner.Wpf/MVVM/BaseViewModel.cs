@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,11 +10,16 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 	/// </ChangeLog>
 	internal class BaseViewModel : ObservableObject, IDisposable
 	{
-		protected Model.SharedDeskPlannerContext _context;
+		protected Model.SharedDeskPlannerContext? _context;
 
 		public BaseViewModel()
 		{
-			_context = new Model.SharedDeskPlannerContext("");
+			//_context = new Model.SharedDeskPlannerContext();
+		}
+
+		public void SetConfiguration(IConfiguration cfg)
+		{
+			_context = new(cfg);
 		}
 
 		public void Dispose()

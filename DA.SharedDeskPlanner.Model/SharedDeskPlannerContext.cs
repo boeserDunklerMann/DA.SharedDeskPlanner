@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DA.SharedDeskPlanner.Model
 {
@@ -6,19 +7,44 @@ namespace DA.SharedDeskPlanner.Model
 	/// <Create Datum="18.02.2026" Entwickler="DA" />
 	/// <Change Datum="18.02.2026" Entwickler="DA">User and Booking added</Change>
 	/// </ChangeLog>
-	public class SharedDeskPlannerContext(string connectionString) : DbContext
+	public class SharedDeskPlannerContext : DbContext
 	{
+		private string _connectionString = "";
+		private IConfiguration? _configuration;
 		public DbSet<InventoryItem> InventoryItems { get; set; }
 		public DbSet<Desk> Desks { get; set; }
 		public DbSet<Room> Rooms { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Booking> Bookings { get; set; }
 
+		public SharedDeskPlannerContext(IConfiguration? cfg=null):base()
+		{
+			if (cfg!=null)
+			{
+				_configuration = cfg;
+				_connectionString = _configuration["ConnectionStrings:da_sdp_db"]!;
+			}
+		}
+
+		public SharedDeskPlannerContext(string connString):base()
+		{
+			_connectionString = connString;
+		}
+
+		public void SetConfiguration(IConfiguration cfg)
+		{
+			if (cfg != null)
+			{
+				_configuration = cfg;
+				_connectionString = _configuration["ConnectionStrings:da_sdp_db"]!;
+				Database.SetConnectionString(_connectionString);
+			}
+		}
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			// https://stackoverflow.com/questions/74060289/mysqlconnection-open-system-invalidcastexception-object-cannot-be-cast-from-d
 			// MariaDB 11+ doesnt work because of nullable PKs?
-			optionsBuilder.UseMySQL(connectionString);  // CaptainTrips works with MariaDB 10
+			optionsBuilder.UseMySQL(_connectionString);  // CaptainTrips works with MariaDB 10
 														//this.SavingChanges += OnSavingChanges;
 														//this.ChangeTracker.StateChanged += OnStateChanged;
 		}
