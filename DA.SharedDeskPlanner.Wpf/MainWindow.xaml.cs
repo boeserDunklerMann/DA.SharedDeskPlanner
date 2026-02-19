@@ -48,6 +48,9 @@ namespace DA.SharedDeskPlanner.Wpf
 					case 4:
 						child = new Controls.DesksControl();
 						break;
+					case 5:
+						child = new Controls.BookingsControl();
+						break;
 					default:
 						throw new ApplicationException($"unrecognized ribbon tab index: {ribbon.SelectedIndex}");
 				}

@@ -33,6 +33,7 @@
 			</RibbonTab>
 			<RibbonTab Header="Räume"/><!--3-->
 			<RibbonTab Header="Schreibtische"/><!--4-->
+			<RibbonTab Header="Buchungen"/><!--5-->
 		</Ribbon>
 		<Grid DockPanel.Dock="Top" x:Name="grdMain"/>
 	</DockPanel>
