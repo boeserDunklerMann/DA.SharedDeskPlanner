@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DA.SharedDeskPlanner.Model.Contracts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace DA.SharedDeskPlanner.Model
@@ -58,6 +59,18 @@ namespace DA.SharedDeskPlanner.Model
 			// TODO AD: https://learn.microsoft.com/de-de/ef/core/logging-events-diagnostics/events
 		}
 
+		public override int SaveChanges()
+		{
+			UpdateChangeDate();
+			return base.SaveChanges();
+		}
+
+		public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+		{
+			UpdateChangeDate();
+			return await base.SaveChangesAsync(cancellationToken);
+		}
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -91,6 +104,25 @@ namespace DA.SharedDeskPlanner.Model
 			{
 				ent.HasKey(b => b.ID);
 				ent.Property(b => b.Name).IsRequired();
+			});
+		}
+
+		private void UpdateChangeDate()
+		{
+			DateTime now = DateTime.UtcNow;
+			var createdEntries = ChangeTracker.Entries().Where(entry => entry.State == EntityState.Added).ToList();
+			var changedEntries = ChangeTracker.Entries().Where(entry => entry.State == EntityState.Modified).ToList();
+			createdEntries.ForEach(e =>
+			{
+				var prop = e.Properties.FirstOrDefault(prop => prop.Metadata.Name.Equals(nameof(ICurrentTimestamps.CreationDate)));
+				if (prop != null)
+					prop.CurrentValue = now;
+			});
+			changedEntries.ForEach(e =>
+			{
+				var prop = e.Properties.FirstOrDefault(prop => prop.Metadata.Name.Equals(nameof(ICurrentTimestamps.ChangeDate)));
+				if (prop != null)
+					prop.CurrentValue = now;
 			});
 		}
 	}
