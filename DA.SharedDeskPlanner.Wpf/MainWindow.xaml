@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DA.SharedDeskPlanner.Wpf"
 		xmlns:vm="clr-namespace:DA.SharedDeskPlanner.Wpf.MVVM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="800">
 	<RibbonWindow.DataContext>
 		<vm:MainWindowViewModel/>
 	</RibbonWindow.DataContext>
@@ -24,40 +24,12 @@
 			</Ribbon.QuickAccessToolBar>
 			<RibbonTab Header="Start"><!--0-->
 				<RibbonGroup Header="Einstellungen">
-					<StackPanel Orientation="Vertical" Margin="5">
-						<StackPanel Orientation="Horizontal">
-							<Label>Connection String</Label>
-							<TextBox>
-								<TextBox.Text>
-									<Binding Path="ConnString">
-									</Binding>
-								</TextBox.Text>
-								<TextBox.Width>100</TextBox.Width>
-							</TextBox>
-						</StackPanel>
-						<Button Command="{Binding ChangeConnString}">OK</Button>
-					</StackPanel>
 				</RibbonGroup>
 			</RibbonTab>
 			<RibbonTab Header="Stammdaten"><!--1-->
 				
 			</RibbonTab>
 			<RibbonTab Header="User"><!--2-->
-				<RibbonGroup Header="Einstellungen">
-					<StackPanel Orientation="Vertical" Margin="5">
-						<StackPanel Orientation="Horizontal">
-							<Label>Connection String</Label>
-							<TextBox>
-								<TextBox.Text>
-									<Binding Path="ConnString">
-									</Binding>
-								</TextBox.Text>
-								<TextBox.Width>100</TextBox.Width>
-							</TextBox>
-						</StackPanel>
-						<Button Command="{Binding ChangeConnString}">OK</Button>
-					</StackPanel>
-				</RibbonGroup>
 			</RibbonTab>
 			<RibbonTab Header="Räume"/><!--3-->
 			<RibbonTab Header="Schreibtische"/><!--4-->

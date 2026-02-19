@@ -14,7 +14,8 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 		{
 			// TODO DA: set connstring here
 			_users = [];
-			//LoadListsAsync();
+			_newUser = BaseModel.Create<User>();
+			LoadListsAsync();
 		}
 
 		#region Bound props
@@ -29,24 +30,32 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 			}
 		}
 
-		private ObservableCollection<User> _users;
+		private readonly ObservableCollection<User> _users;
 		public ObservableCollection<User> Users
 		{
 			get => _users;
-			set
-			{
-				_users = value;
-				RaisePropChanged(nameof(Users));
-			}
+		}
+
+		private User _newUser;
+		public User NewUser
+		{
+			get => _newUser;
 		}
 		#endregion
 
 		#region Commands
 		public DelegateCommand SaveChanges => new DelegateCommand(CmdSaveChangesAsync);
-		public DelegateCommand ChangeConnString => new DelegateCommand(CmdChangeConnStringAsync);
+		public DelegateCommand CreateUser => new DelegateCommand(CmdCreateUser);
 		#endregion
 
 		#region priv. (Command) methods
+		private async void CmdCreateUser()
+		{
+			_newUser.ChangeDate = _newUser.CreationDate = DateTime.UtcNow;
+			await _context.Users.AddAsync(_newUser);
+			await _context.SaveChangesAsync();
+		}
+
 		private async void CmdSaveChangesAsync()
 		{
 			if (_context != null)
@@ -54,21 +63,11 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 				await _context.SaveChangesAsync();
 			}
 		}
-		private async void CmdChangeConnStringAsync()
-		{
-			if (_context != null)
-			{
-				_context.Database.SetConnectionString(_connString);
-			}
-			else
-				_context=new SharedDeskPlannerContext(_connString!);
-			LoadLists();
-		}
-		private void LoadLists()
+		private async Task LoadListsAsync()
 		{
 			if (!string.IsNullOrEmpty(_context.Database.GetConnectionString()))
 			{
-				var user = _context.Users.Include(nameof(User.Bookings)).ToList();
+				var user = await _context.Users.Include(nameof(User.Bookings)).ToListAsync();
 				_users.Clear();
 				user.ForEach(u => _users.Add(u));
 				//...

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:DA.SharedDeskPlanner.Wpf.Controls"
 			 xmlns:vm="clr-namespace:DA.SharedDeskPlanner.Wpf.MVVM"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="460" d:DesignWidth="800">
 	<UserControl.DataContext>
 		<vm:MainWindowViewModel/>
 	</UserControl.DataContext>
@@ -15,6 +15,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="30"/>
 			<RowDefinition Height="*"/>
+			<RowDefinition Height="160"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
@@ -22,6 +23,15 @@
 		<Label Grid.Row="0">Benutzer</Label>
 		<DataGrid Width="auto" Background="LightBlue" Grid.Row="1" ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
 		</DataGrid>
-		
+		<!--Control, neuer User-->
+		<StackPanel Orientation="Vertical" Grid.Row="2">
+			<Label>Vorname</Label>
+			<TextBox Text="{Binding NewUser.FirstName}"/>
+			<Label>Nachname</Label>
+			<TextBox Text="{Binding NewUser.LastName}"/>
+			<Label>Initialien</Label>
+			<TextBox Text="{Binding NewUser.Name}"/>
+			<Button Command="{Binding CreateUser}">Anlegen</Button>
+		</StackPanel>
 	</Grid>
 </UserControl>
