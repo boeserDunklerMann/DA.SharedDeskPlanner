@@ -15,7 +15,6 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 	{
 		public MainWindowViewModel() : base()
 		{
-			// TODO DA: set connstring here
 			_users = [];
 			_newUser = BaseModel.Create<User>();
 
