@@ -25,12 +25,30 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 			_desks = [];
 			_newDesk = BaseModel.Create<Desk>();
 
+			_rooms = [];
+			_newRoom = BaseModel.Create<Room>();
+
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed, DA: cannot await inside ctor
 			LoadListsAsync(ListToLoad.All);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		}
 
 		#region Bound props
+		private readonly ObservableCollection<Room> _rooms;
+		public ObservableCollection<Room> Rooms => _rooms;
+		private Room? _selectedRoom;
+		public Room? SelectedRoom
+		{
+			get => _selectedRoom;
+			set
+			{
+				_selectedRoom = value;
+				RaisePropChanged(nameof(SelectedRoom));
+			}
+		}
+		private Room _newRoom;
+		public Room NewRoom => _newRoom;
+
 		private readonly ObservableCollection<Desk> _desks;
 		public ObservableCollection<Desk> Desktops => _desks;
 		private Desk? _selectedDesk;
@@ -100,9 +118,16 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 		public DelegateCommand DeleteInventoryItem => new DelegateCommand(CmdDeleteInventoryItem);
 		public DelegateCommand CreateInventoryItem => new DelegateCommand(CmdCreateInventoryItem);
 		public DelegateCommand DeleteDesk => new DelegateCommand(CmdDeleteDesk);
+		public DelegateCommand DeleteRoom => new DelegateCommand(CmdDeleteRoom);
 		#endregion
 
 		#region priv. (Command) methods
+		private async void CmdDeleteRoom()
+		{
+			_selectedRoom!.Deleted = true;
+			await _context.SaveChangesAsync();
+			await LoadListsAsync(ListToLoad.Rooms);
+		}
 		private async void CmdDeleteDesk()
 		{
 			_selectedDesk!.Deleted = true;
@@ -144,7 +169,7 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 		}
 		enum ListToLoad
 		{
-			All, Users, Inventory, Desks
+			All, Users, Inventory, Desks, Rooms
 		}
 
 		private async Task LoadListsAsync(ListToLoad toLoad)
@@ -157,6 +182,7 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 						await LoadInventoryAsync();
 						await LoadUsersAsync();
 						await LoadDesksAsync();
+						await LoadRoomsAsync();
 						break;
 					case ListToLoad.Inventory:
 						await LoadInventoryAsync();
@@ -166,6 +192,9 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 						break;
 					case ListToLoad.Desks:
 						await LoadDesksAsync();
+						break;
+					case ListToLoad.Rooms:
+						await LoadRoomsAsync();
 						break;
 					default:
 						throw new ApplicationException($"unrecognized List to load: {toLoad.ToString()}");
@@ -196,6 +225,15 @@ namespace DA.SharedDeskPlanner.Wpf.MVVM
 			_desks.Clear();
 			desks.ForEach(_desks.Add);
 			RaisePropChanged(nameof(Desktops));
+		}
+		private async Task LoadRoomsAsync()
+		{
+			var rooms = await _context.Rooms
+				.Include(nameof(Room.Desks))
+				.Where(r => !r.Deleted).ToListAsync();
+			_rooms.Clear();
+			rooms.ForEach(_rooms.Add);
+			RaisePropChanged(nameof(Rooms));
 		}
 		#endregion
 	}
