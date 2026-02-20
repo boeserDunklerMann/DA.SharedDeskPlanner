@@ -26,7 +26,23 @@ Content-Type: application/json
   "firstName": "Max",
   "lastName": "Mustermann",
   "name": "MM",
-  "bookings": null
+  "bookings": null,
+  "deleted": false
+}
+
+###
+
+GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/room
+
+###
+
+POST {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/room
+Content-Type: application/json
+
+{
+  "name": "Kerker",
+  "desks": null,
+  "deleted": false
 }
 
 ###

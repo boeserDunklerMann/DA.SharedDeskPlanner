@@ -28,6 +28,7 @@ namespace DA.SharedDeskPlanner.Model
 		}
 		[JsonIgnore]
 		public virtual ICollection<InventoryItem>? Inventory { get; set; }
+		[JsonIgnore]
 		public virtual Room Room { get; set; }
 		public virtual ICollection<Booking> Bookings { get; set; }
 	}
