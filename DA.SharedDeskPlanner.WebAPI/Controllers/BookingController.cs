@@ -25,10 +25,11 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 
 		#region Booking FUCK
 		[HttpPost]
-		public async Task<IActionResult> CreateBookingAsync(Booking booking)
+		public async Task<IActionResult> CreateBookingAsync(Booking? booking)
 		{
 			logger.LogInformation("Create booking");
 			NullReferenceException.ThrowIfNull(context, nameof(context));
+			ArgumentNullException.ThrowIfNull(booking, nameof(Booking));
 			booking.ID = 0;
 			await context.Bookings.AddAsync(booking);
 			await context.SaveChangesAsync();
@@ -57,7 +58,8 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 			logger.LogInformation(nameof(UpdateBookingAsync));
 			NullReferenceException.ThrowIfNull(context, nameof(context));
 			ArgumentNullException.ThrowIfNull(booking, nameof(Booking));
-			Booking? bookingFromDB = await context.Bookings.FirstOrDefaultAsync(b => b.ID == booking.ID && !b.Deleted);
+			Booking? bookingFromDB = await context.Bookings
+				.FirstOrDefaultAsync(b => b.ID == booking.ID && !b.Deleted);
 			ObjectNotFoundException.ThrowIfNull(bookingFromDB, nameof(Booking), booking.ID);
 			bookingFromDB!.Name = booking.Name;
 			bookingFromDB.BookingEnd = booking.BookingEnd;

@@ -14,3 +14,19 @@ GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/booking
 DELETE {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/booking/{{bookingID}}
 
 ###
+
+GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/user
+
+###
+
+POST {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  "firstName": "Max",
+  "lastName": "Mustermann",
+  "name": "MM",
+  "bookings": null
+}
+
+###
