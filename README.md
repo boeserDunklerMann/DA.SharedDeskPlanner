@@ -14,16 +14,22 @@ Ziel ist es, eine Blazor-Web-App zu erstellen, mit welcher der User einen Raum/D
 Im folgenden wird geschildert, wie das Projekt realisiert wird.
 ## Serialisierung
 Serialisiert soll das Ganze mittels Entity Framework in einer SQL-Datenbank (MariaDB)
+## Server Bestandteile
+### DA.SharedDeskPlanner.WebAPI
+Rest-API zum Datenzugriff, FUCK Operationen für alle Entities, die in Model definiert sind.
 ## Client Bestandteile
 Zur Administration (Stammdatenpflege, etc.) soll eine WPF Anwendung erstellt werden.
 Für den Benutzer, den Desk-Bucher, soll eine Blazor-Web-App erstellt werden.
 ## Code Projects
+
 ### DA.SharedDeskPlanner.Model
+
 ### DA.SharedDeskPlanner.Wpf
 
 Enthält das Datenmodell
 # Bemerkungen
 1. alle Zeiten in UTC
+2. FUCK: Find, Update, Create, Kill = CRUD
 # Dokumentationen
 1. https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework-core-example.html
 1. https://stackoverflow.com/questions/59909207/cannot-add-appsettings-json-inside-wpf-project-net-core-3-0

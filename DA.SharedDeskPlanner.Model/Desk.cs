@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace DA.SharedDeskPlanner.Model
 {
@@ -25,7 +26,7 @@ namespace DA.SharedDeskPlanner.Model
 		{
 			return ID.GetHashCode();
 		}
-
+		[JsonIgnore]
 		public virtual ICollection<InventoryItem>? Inventory { get; set; }
 		public virtual Room Room { get; set; }
 		public virtual ICollection<Booking> Bookings { get; set; }

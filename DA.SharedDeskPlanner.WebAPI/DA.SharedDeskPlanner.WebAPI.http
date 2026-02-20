@@ -1,0 +1,16 @@
+@DA.SharedDeskPlanner.WebAPI_HostAddress = https://localhost:7214
+
+###
+
+@bookingID=1
+GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/booking/{{bookingID}}
+
+###
+
+GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/booking
+
+###
+
+DELETE {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/booking/{{bookingID}}
+
+###
