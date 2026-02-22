@@ -12,6 +12,13 @@ In Zeiten von Shared Desks ist es sinnvoll ein Raumplanungstool zu haben. D.h. w
 Ziel ist es, eine Blazor-Web-App zu erstellen, mit welcher der User einen Raum/Desk buchen kann.
 # Realisierung
 Im folgenden wird geschildert, wie das Projekt realisiert wird.
+## fachliche Use-Cases
+Ich möchte in der WebAPI verhindern, reintechnische Verben (CRUD bzw. FUCK) zu verwenden, so blickt man schnell nicht mehr durch, wenn man sehen will, was macht die Anwendung da eigentlich.
+Stattdessen drösel ich erstmal alle sinnvollen Use-Cases auf und erstelle danach die entsprechenden WebAPI-Endpoints
+### Desk buchen
+#### setzt voraus
+#### nötige Eingangsparameter
+
 ## Serialisierung
 Serialisiert soll das Ganze mittels Entity Framework in einer SQL-Datenbank (MariaDB)
 ## Server Bestandteile
@@ -20,7 +27,7 @@ Rest-API zum Datenzugriff, FUCK Operationen für alle Entities, die in Model def
 ## Client Bestandteile
 Zur Administration (Stammdatenpflege, etc.) soll eine WPF Anwendung erstellt werden.
 Für den Benutzer, den Desk-Bucher, soll eine Blazor-Web-App erstellt werden.
-## Code Projects
+## Coded Projects
 
 ### DA.SharedDeskPlanner.Model
 
