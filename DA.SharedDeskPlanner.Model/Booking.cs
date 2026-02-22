@@ -1,7 +1,10 @@
-﻿namespace DA.SharedDeskPlanner.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DA.SharedDeskPlanner.Model
 {
 	/// <ChangeLog>
 	/// <Create Datum="18.02.2026" Entwickler="DA" />
+	/// <Change Datum="22.02.2026" Entwickler="DA">IsActive property added</Change>
 	/// </ChangeLog>
 	/// <summary>Definiert eine Desk-Buchung
 	/// defines a desk-booking
@@ -26,7 +29,8 @@
 
 		public virtual User User { get; set; }
 		public virtual Desk Desk { get; set; }
-
+		[NotMapped]
+		public bool IsActive => (BookingStart < DateTime.UtcNow) && (BookingEnd > DateTime.UtcNow);
 	}
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 }
