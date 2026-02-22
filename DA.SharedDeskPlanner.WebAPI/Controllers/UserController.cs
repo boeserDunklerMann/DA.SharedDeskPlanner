@@ -65,6 +65,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 			userFromDB!.FirstName = user.FirstName;
 			userFromDB.LastName = user.LastName;
 			userFromDB.Bookings = user.Bookings;
+			userFromDB.Name = user.Name;
 			await context.SaveChangesAsync();
 			return Ok(user);
 		}
