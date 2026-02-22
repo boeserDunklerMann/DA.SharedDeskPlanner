@@ -1,4 +1,4 @@
-@DA.SharedDeskPlanner.WebAPI_HostAddress = https://localhost:7214
+@DA.SharedDeskPlanner.WebAPI_HostAddress = http://localhost:5295
 
 ###
 
@@ -44,5 +44,18 @@ Content-Type: application/json
   "desks": null,
   "deleted": false
 }
+
+###
+
+GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/desk
+
+###
+
+@deskID=1
+GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/desk/{{deskID}}
+
+###
+@deskID=1
+DELETE {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/desk/{{deskID}}
 
 ###
