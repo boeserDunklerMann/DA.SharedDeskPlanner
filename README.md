@@ -14,9 +14,14 @@ Ziel ist es, eine Blazor-Web-App zu erstellen, mit welcher der User einen Raum/D
 Im folgenden wird geschildert, wie das Projekt realisiert wird.
 ## fachliche Use-Cases
 Ich möchte in der WebAPI verhindern, reintechnische Verben (CRUD bzw. FUCK) zu verwenden, so blickt man schnell nicht mehr durch, wenn man sehen will, was macht die Anwendung da eigentlich.
+Siehe auch hier: https://www.heise.de/blog/Software-fachlich-modellieren-CRUD-war-gestern-10292363.html
+oder hier: https://www.heise.de/blog/Warum-CRUD-fuer-Maerchen-und-Unternehmen-gleichermassen-ungeeignet-ist-10515489.html
 Stattdessen drösel ich erstmal alle sinnvollen Use-Cases auf und erstelle danach die entsprechenden WebAPI-Endpoints
 ### Desk buchen
 #### setzt voraus
+1. Desk existiert
+2. ...und ist einem Room zugeordnet
+
 #### nötige Eingangsparameter
 
 ## Serialisierung
@@ -30,6 +35,16 @@ Für den Benutzer, den Desk-Bucher, soll eine Blazor-Web-App erstellt werden.
 ## Coded Projects
 
 ### DA.SharedDeskPlanner.Model
+Alle Entitäten überschreiben dei Methoden `.Equals(...)` und `.GetHashCode()`
+
+Basis-Model-Klasse `BaseModel` mit
+- ID: int
+- Name: string
+- ChangeDate: DateTime?
+- CreationDate: DateTime
+- Deleted: bool
+
+Entität `Room`, mit einer Liste von `Desk`s.
 
 ### DA.SharedDeskPlanner.Wpf
 
