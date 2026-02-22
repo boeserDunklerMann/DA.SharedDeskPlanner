@@ -4,14 +4,15 @@ Planner for shared desk rooms
 English version see below
 
 # Einführung
-In Zeiten von Shared Desks ist es sinnvoll ein Raumplanungstool zu haben. D.h. wer bucht wann welchen Raum bzw. desk.
+In Zeiten von Shared Desks ist es sinnvoll ein Raumplanungstool zu haben. D.h. wer bucht wann welchen Desk in welchem Raum
 ## Platforms, Dependencies
 * .Net 10
 * MySQL.EntityFrameworkCore 10.0.1
 # Ziel
-Ziel ist es, eine Blazor-Web-App zu erstellen, mit welcher der User einen Raum/Desk buchen kann.
+Ziel ist es, eine Blazor-Web-App zu erstellen, mit welcher der User einen Desk buchen kann.
 # Realisierung
 Im folgenden wird geschildert, wie das Projekt realisiert wird.
+
 ## fachliche Use-Cases
 Ich möchte in der WebAPI verhindern, reintechnische Verben (CRUD bzw. FUCK) zu verwenden, so blickt man schnell nicht mehr durch, wenn man sehen will, was macht die Anwendung da eigentlich.
 Siehe auch hier: https://www.heise.de/blog/Software-fachlich-modellieren-CRUD-war-gestern-10292363.html
@@ -45,6 +46,10 @@ Basis-Model-Klasse `BaseModel` mit
 - Deleted: bool
 
 Entität `Room`, mit einer Liste von `Desk`s.
+Entität `Desk`, mit einer Liste von `InventoryItem`s sowie einem `Room` und einer Liste von `Booking`s.
+Entität `InventoryItem` mit einem `Desk` enthält Informationen zur Desk-Ausstattung (Monitor, Docking, Keyboard, Mouse etc.)
+Entität `User` mit `FirstName`und `LastName` und eine Liste von `Booking`s
+Entität `Booking` mit `BookingStart` und `BookingEnd` (jeweils DateTime) und je einem `User` und `Desk`
 
 ### DA.SharedDeskPlanner.Wpf
 
