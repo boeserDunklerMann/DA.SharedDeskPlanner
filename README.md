@@ -19,17 +19,26 @@ Siehe auch hier: https://www.heise.de/blog/Software-fachlich-modellieren-CRUD-wa
 oder hier: https://www.heise.de/blog/Warum-CRUD-fuer-Maerchen-und-Unternehmen-gleichermassen-ungeeignet-ist-10515489.html
 Stattdessen drösel ich erstmal alle sinnvollen Use-Cases auf und erstelle danach die entsprechenden WebAPI-Endpoints
 ### Desk buchen
+
 #### setzt voraus
 1. Desk existiert
 2. ...und ist einem Room zugeordnet
+3. User existiert
+4. Desk im gewünschten Zeitraum noch nicht gebucht
 
 #### nötige Eingangsparameter
+1. DeskID
+2. UserID
+3. Begin
+4. End
 
 ## Serialisierung
 Serialisiert soll das Ganze mittels Entity Framework in einer SQL-Datenbank (MariaDB)
 ## Server Bestandteile
 ### DA.SharedDeskPlanner.WebAPI
 Rest-API zum Datenzugriff, FUCK Operationen für alle Entities, die in Model definiert sind.
+Sowie Abbildung der Use-Cases als Rest-API-Endpoints.
+
 ## Client Bestandteile
 Zur Administration (Stammdatenpflege, etc.) soll eine WPF Anwendung erstellt werden.
 Für den Benutzer, den Desk-Bucher, soll eine Blazor-Web-App erstellt werden.
