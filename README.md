@@ -19,17 +19,14 @@ Siehe auch hier: https://www.heise.de/blog/Software-fachlich-modellieren-CRUD-wa
 oder hier: https://www.heise.de/blog/Warum-CRUD-fuer-Maerchen-und-Unternehmen-gleichermassen-ungeeignet-ist-10515489.html
 Stattdessen drösel ich erstmal alle sinnvollen Use-Cases auf und erstelle danach die entsprechenden WebAPI-Endpoints
 ##Lesend
-### Gib mir alle Buchungen eines bestimmten Zeitraums
+### Gib mir alle Buchungen eines bestimmten Zeitraums*
 #### nötige Eingangsparameter
 3. Begin
 4. End
 
-#### setzt voraus
-
 ### Gib mir alle Buchungen eines Users
 #### nötige Eingangsparameter
 2. UserID
-#### setzt voraus
 
 
 ##Schreibend

@@ -30,6 +30,7 @@ namespace DA.SharedDeskPlanner.Model
 		public virtual ICollection<InventoryItem>? Inventory { get; set; }
 		[JsonIgnore]
 		public virtual Room Room { get; set; }
+		[JsonIgnore]
 		public virtual ICollection<Booking> Bookings { get; set; }
 	}
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore

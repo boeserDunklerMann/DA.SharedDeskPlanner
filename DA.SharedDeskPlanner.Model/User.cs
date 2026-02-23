@@ -1,4 +1,6 @@
-﻿namespace DA.SharedDeskPlanner.Model
+﻿using System.Text.Json.Serialization;
+
+namespace DA.SharedDeskPlanner.Model
 {
 	/// <ChangeLog>
 	/// <Create Datum="18.02.2026" Entwickler="DA" />
@@ -20,6 +22,8 @@
 			return ID.GetHashCode();
 		}
 		#endregion
+
+		[JsonIgnore]
 		public ICollection<Booking>? Bookings { get; set; }
 	}
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore

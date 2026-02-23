@@ -77,7 +77,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 			NullReferenceException.ThrowIfNull(context, nameof(context));
 			User? userFromDB = await context.Users.FirstOrDefaultAsync(u => !u.Deleted && u.ID == userID);
 			ObjectNotFoundException.ThrowIfNull(userFromDB, nameof(User), userID);
-			userFromDB.Deleted = true;
+			userFromDB!.Deleted = true;
 			await context.SaveChangesAsync();
 			return Ok();
 		}

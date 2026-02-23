@@ -1,4 +1,4 @@
-@DA.SharedDeskPlanner.WebAPI_HostAddress = http://localhost:5295
+@DA.SharedDeskPlanner.WebAPI_HostAddress = https://localhost:7214
 
 ###
 
@@ -57,5 +57,16 @@ GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/desk/{{deskID}}
 ###
 @deskID=1
 DELETE {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/api/desk/{{deskID}}
+
+###
+
+@begin=2026-02-17
+@end=2026-03-01
+GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/bl/businesslogic/GetBookings?begin={{begin}}&end={{end}}
+
+###
+
+@userID=1
+GET {{DA.SharedDeskPlanner.WebAPI_HostAddress}}/bl/businesslogic/GetBookingsPerUser/{{userID}}
 
 ###
