@@ -14,11 +14,33 @@ Ziel ist es, eine Blazor-Web-App zu erstellen, mit welcher der User einen Desk b
 Im folgenden wird geschildert, wie das Projekt realisiert wird.
 
 ## fachliche Use-Cases
-Ich möchte in der WebAPI verhindern, reintechnische Verben (CRUD bzw. FUCK) zu verwenden, so blickt man schnell nicht mehr durch, wenn man sehen will, was macht die Anwendung da eigentlich.
+Ich möchte in der WebAPI verhindern, rein technische Verben (CRUD bzw. FUCK) zu verwenden, so blickt man schnell nicht mehr durch, wenn man sehen will, was macht die Anwendung da eigentlich.
 Siehe auch hier: https://www.heise.de/blog/Software-fachlich-modellieren-CRUD-war-gestern-10292363.html
 oder hier: https://www.heise.de/blog/Warum-CRUD-fuer-Maerchen-und-Unternehmen-gleichermassen-ungeeignet-ist-10515489.html
 Stattdessen drösel ich erstmal alle sinnvollen Use-Cases auf und erstelle danach die entsprechenden WebAPI-Endpoints
+##Lesend
+### Gib mir alle Buchungen eines bestimmten Zeitraums
+#### nötige Eingangsparameter
+3. Begin
+4. End
+
+#### setzt voraus
+
+### Gib mir alle Buchungen eines Users
+#### nötige Eingangsparameter
+2. UserID
+#### setzt voraus
+
+
+##Schreibend
+
 ### Desk buchen
+
+#### nötige Eingangsparameter
+1. DeskID
+2. UserID
+3. Begin
+4. End
 
 #### setzt voraus
 1. Desk existiert
@@ -26,11 +48,6 @@ Stattdessen drösel ich erstmal alle sinnvollen Use-Cases auf und erstelle danac
 3. User existiert
 4. Desk im gewünschten Zeitraum noch nicht gebucht
 
-#### nötige Eingangsparameter
-1. DeskID
-2. UserID
-3. Begin
-4. End
 
 ## Serialisierung
 Serialisiert soll das Ganze mittels Entity Framework in einer SQL-Datenbank (MariaDB)
