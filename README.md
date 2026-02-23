@@ -21,12 +21,12 @@ Stattdessen drösel ich erstmal alle sinnvollen Use-Cases auf und erstelle danac
 ##Lesend
 ### Gib mir alle Buchungen eines bestimmten Zeitraums*
 #### nötige Eingangsparameter
-3. Begin
+1. Begin
 4. End
 
 ### Gib mir alle Buchungen eines Users
 #### nötige Eingangsparameter
-2. UserID
+1. UserID
 
 
 ##Schreibend
