@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="DA.SharedDeskPlanner.Blazor/DA.SharedDeskPlanner.Blazor.csproj" Id="c682a89c-4eee-44ab-9168-8c7d68d579d4" />
   <Project Path="DA.SharedDeskPlanner.Cons.Test/DA.SharedDeskPlanner.Cons.Test.csproj" Id="88d8bae0-e771-4d41-89d9-4bd2e359e2ad" />
   <Project Path="DA.SharedDeskPlanner.Model/DA.SharedDeskPlanner.Model.csproj" Id="8187912f-37ce-4314-b7be-61621712f3bf" />
   <Project Path="DA.SharedDeskPlanner.WebAPI/DA.SharedDeskPlanner.WebAPI.csproj" Id="b5f9a0d0-ba20-4b56-82eb-5c7b2e3f109a" />

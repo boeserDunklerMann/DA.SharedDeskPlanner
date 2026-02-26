@@ -20,20 +20,18 @@ oder hier: https://www.heise.de/blog/Warum-CRUD-fuer-Maerchen-und-Unternehmen-gl
 Stattdessen drösel ich erstmal alle sinnvollen Use-Cases auf und erstelle danach die entsprechenden WebAPI-Endpoints
 ##Lesend
 ### Gib mir alle Buchungen eines bestimmten Zeitraums*
-#### nötige Eingangsparameter
+#### Eingangsparameter
 1. Begin
 4. End
 
 ### Gib mir alle Buchungen eines Users
-#### nötige Eingangsparameter
+#### Eingangsparameter
 1. UserID
 
 
 ##Schreibend
-
 ### Desk buchen
-
-#### nötige Eingangsparameter
+#### Eingangsparameter
 1. DeskID
 2. UserID
 3. Begin
