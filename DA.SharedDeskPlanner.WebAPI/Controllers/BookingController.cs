@@ -40,7 +40,9 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 		{
 			logger.LogInformation("Load bookings");
 			NullReferenceException.ThrowIfNull(context, nameof(context));
-			return await context.Bookings.Where(b => !b.Deleted).ToListAsync();
+			return await context.Bookings
+				.Include(b => b.Desk).Include(b => b.User)
+				.Where(b => !b.Deleted).ToListAsync();
 		}
 		[HttpGet]
 		[Route("{bookingID}")]
@@ -48,7 +50,8 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 		{
 			logger.LogInformation("Load booking");
 			NullReferenceException.ThrowIfNull(context, nameof(context));
-			Booking? retval = await context.Bookings.FirstOrDefaultAsync(b => b.ID == bookingID && !b.Deleted);
+			Booking? retval = await context.Bookings.Include(b => b.Desk).Include(b => b.User)
+				.FirstOrDefaultAsync(b => b.ID == bookingID && !b.Deleted);
 			ObjectNotFoundException.ThrowIfNull(retval, nameof(Booking), bookingID);
 			return retval!;
 		}
