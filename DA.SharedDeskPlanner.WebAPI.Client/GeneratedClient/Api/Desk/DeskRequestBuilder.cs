@@ -21,12 +21,25 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Api.Desk
         /// <summary>Gets an item from the DA.SharedDeskPlanner.WebAPI.Client.api.Desk.item collection</summary>
         /// <param name="position">Unique identifier of the item</param>
         /// <returns>A <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Api.Desk.Item.WithDeskItemRequestBuilder"/></returns>
-        public global::DA.SharedDeskPlanner.WebAPI.Client.Api.Desk.Item.WithDeskItemRequestBuilder this[string position]
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Api.Desk.Item.WithDeskItemRequestBuilder this[int position]
         {
             get
             {
                 var urlTplParams = new Dictionary<string, object>(PathParameters);
                 urlTplParams.Add("deskID", position);
+                return new global::DA.SharedDeskPlanner.WebAPI.Client.Api.Desk.Item.WithDeskItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
+        /// <summary>Gets an item from the DA.SharedDeskPlanner.WebAPI.Client.api.Desk.item collection</summary>
+        /// <param name="position">Unique identifier of the item</param>
+        /// <returns>A <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Api.Desk.Item.WithDeskItemRequestBuilder"/></returns>
+        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Api.Desk.Item.WithDeskItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("deskID", position);
                 return new global::DA.SharedDeskPlanner.WebAPI.Client.Api.Desk.Item.WithDeskItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }

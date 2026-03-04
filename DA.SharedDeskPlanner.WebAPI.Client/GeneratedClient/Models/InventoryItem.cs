@@ -29,13 +29,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
         public global::DA.SharedDeskPlanner.WebAPI.Client.Models.InventoryItem.InventoryItem_desk Desk { get; set; }
 #endif
         /// <summary>The id property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public UntypedNode? Id { get; set; }
-#nullable restore
-#else
-        public UntypedNode Id { get; set; }
-#endif
+        public int? Id { get; set; }
         /// <summary>The name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -73,7 +67,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
                 { "creationDate", n => { CreationDate = n.GetDateTimeOffsetValue(); } },
                 { "deleted", n => { Deleted = n.GetBoolValue(); } },
                 { "desk", n => { Desk = n.GetObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.InventoryItem.InventoryItem_desk>(global::DA.SharedDeskPlanner.WebAPI.Client.Models.InventoryItem.InventoryItem_desk.CreateFromDiscriminatorValue); } },
-                { "id", n => { Id = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
+                { "id", n => { Id = n.GetIntValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
             };
         }
@@ -88,7 +82,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
             writer.WriteDateTimeOffsetValue("creationDate", CreationDate);
             writer.WriteBoolValue("deleted", Deleted);
             writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.InventoryItem.InventoryItem_desk>("desk", Desk);
-            writer.WriteObjectValue<UntypedNode>("id", Id);
+            writer.WriteIntValue("id", Id);
             writer.WriteStringValue("name", Name);
             writer.WriteAdditionalData(AdditionalData);
         }

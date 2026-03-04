@@ -21,12 +21,25 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Api.InventoryItem
         /// <summary>Gets an item from the DA.SharedDeskPlanner.WebAPI.Client.api.InventoryItem.item collection</summary>
         /// <param name="position">Unique identifier of the item</param>
         /// <returns>A <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Api.InventoryItem.Item.WithInventoryItemItemRequestBuilder"/></returns>
-        public global::DA.SharedDeskPlanner.WebAPI.Client.Api.InventoryItem.Item.WithInventoryItemItemRequestBuilder this[string position]
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Api.InventoryItem.Item.WithInventoryItemItemRequestBuilder this[int position]
         {
             get
             {
                 var urlTplParams = new Dictionary<string, object>(PathParameters);
                 urlTplParams.Add("inventoryItemID", position);
+                return new global::DA.SharedDeskPlanner.WebAPI.Client.Api.InventoryItem.Item.WithInventoryItemItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
+        /// <summary>Gets an item from the DA.SharedDeskPlanner.WebAPI.Client.api.InventoryItem.item collection</summary>
+        /// <param name="position">Unique identifier of the item</param>
+        /// <returns>A <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Api.InventoryItem.Item.WithInventoryItemItemRequestBuilder"/></returns>
+        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Api.InventoryItem.Item.WithInventoryItemItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("inventoryItemID", position);
                 return new global::DA.SharedDeskPlanner.WebAPI.Client.Api.InventoryItem.Item.WithInventoryItemItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }

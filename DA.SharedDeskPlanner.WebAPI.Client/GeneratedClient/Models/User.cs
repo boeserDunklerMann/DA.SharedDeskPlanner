@@ -29,13 +29,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
         public string FirstName { get; set; }
 #endif
         /// <summary>The id property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public UntypedNode? Id { get; set; }
-#nullable restore
-#else
-        public UntypedNode Id { get; set; }
-#endif
+        public int? Id { get; set; }
         /// <summary>The lastName property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -81,7 +75,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
                 { "creationDate", n => { CreationDate = n.GetDateTimeOffsetValue(); } },
                 { "deleted", n => { Deleted = n.GetBoolValue(); } },
                 { "firstName", n => { FirstName = n.GetStringValue(); } },
-                { "id", n => { Id = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
+                { "id", n => { Id = n.GetIntValue(); } },
                 { "lastName", n => { LastName = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
             };
@@ -97,7 +91,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
             writer.WriteDateTimeOffsetValue("creationDate", CreationDate);
             writer.WriteBoolValue("deleted", Deleted);
             writer.WriteStringValue("firstName", FirstName);
-            writer.WriteObjectValue<UntypedNode>("id", Id);
+            writer.WriteIntValue("id", Id);
             writer.WriteStringValue("lastName", LastName);
             writer.WriteStringValue("name", Name);
             writer.WriteAdditionalData(AdditionalData);

@@ -18,12 +18,25 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Bl.BusinessLogic.GetBookingsPerUser
         /// <summary>Gets an item from the DA.SharedDeskPlanner.WebAPI.Client.bl.BusinessLogic.GetBookingsPerUser.item collection</summary>
         /// <param name="position">Unique identifier of the item</param>
         /// <returns>A <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Bl.BusinessLogic.GetBookingsPerUser.Item.WithUserItemRequestBuilder"/></returns>
-        public global::DA.SharedDeskPlanner.WebAPI.Client.Bl.BusinessLogic.GetBookingsPerUser.Item.WithUserItemRequestBuilder this[string position]
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Bl.BusinessLogic.GetBookingsPerUser.Item.WithUserItemRequestBuilder this[int position]
         {
             get
             {
                 var urlTplParams = new Dictionary<string, object>(PathParameters);
                 urlTplParams.Add("userID", position);
+                return new global::DA.SharedDeskPlanner.WebAPI.Client.Bl.BusinessLogic.GetBookingsPerUser.Item.WithUserItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
+        /// <summary>Gets an item from the DA.SharedDeskPlanner.WebAPI.Client.bl.BusinessLogic.GetBookingsPerUser.item collection</summary>
+        /// <param name="position">Unique identifier of the item</param>
+        /// <returns>A <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Bl.BusinessLogic.GetBookingsPerUser.Item.WithUserItemRequestBuilder"/></returns>
+        [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Bl.BusinessLogic.GetBookingsPerUser.Item.WithUserItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("userID", position);
                 return new global::DA.SharedDeskPlanner.WebAPI.Client.Bl.BusinessLogic.GetBookingsPerUser.Item.WithUserItemRequestBuilder(urlTplParams, RequestAdapter);
             }
         }
