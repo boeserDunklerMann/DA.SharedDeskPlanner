@@ -7,4 +7,8 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DA.SharedDeskPlanner.WebAPI.Client\DA.SharedDeskPlanner.WebAPI.Client.csproj" />
+  </ItemGroup>
+
 </Project>

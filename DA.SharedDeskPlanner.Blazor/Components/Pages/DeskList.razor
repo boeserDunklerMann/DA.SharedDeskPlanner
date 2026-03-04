@@ -1,0 +1,31 @@
+﻿@page "/DeskList"
+@using Microsoft.AspNetCore.Components.Authorization
+@inherits DeskList_Code
+
+<h3>DeskList</h3>
+@{
+	if (!Loading)
+	{
+		<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Raum</th>
+				<th>Bemerkung</th>
+				<th>heute gebucht</th>
+			</tr>
+		</thead>
+		<tbody>
+		@foreach(var desk in Desks!)
+				{
+					<tr>
+					<td>@desk.Name</td>
+					<td>@GetRoomByDesk(desk)?.Name</td>
+					<td>@desk.Remarks</td>
+					<td>@IsDeskBookedToday(desk)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}
