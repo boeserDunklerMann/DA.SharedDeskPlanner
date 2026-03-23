@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DA.SharedDeskPlanner.Model\DA.SharedDeskPlanner.Model.csproj" />
     <ProjectReference Include="..\DA.SharedDeskPlanner.WebAPI.Client\DA.SharedDeskPlanner.WebAPI.Client.csproj" />
   </ItemGroup>
 
