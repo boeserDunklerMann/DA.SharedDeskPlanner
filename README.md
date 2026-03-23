@@ -1,6 +1,8 @@
 # DA.SharedDeskPlanner
 Planner for shared desk rooms
 
+Confluence: https://boeserdunklermann.atlassian.net/wiki/x/AQC4CQ
+
 English version see below
 
 # Einführung
