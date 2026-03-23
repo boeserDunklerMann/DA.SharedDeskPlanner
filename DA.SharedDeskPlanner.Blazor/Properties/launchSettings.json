@@ -3,7 +3,7 @@
     "http": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "BookedDesksList",
+      "launchUrl": "Users",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

@@ -1,11 +1,10 @@
 ﻿@page "/Users"
 @inject NavigationManager navMgr
 
-<h3>Users</h3>
+<h3>Benutzer</h3>
 @{
 	if (!Loading)
 	{
-		<h4>Benutzer</h4>
 		<table class="table">
 			<thead>
 				<tr>
@@ -31,11 +30,13 @@
 		</table>
 
 	}
+	@if (editContext != null)
+	{
 	<div>
 	<h4>BenutzerIn anlegen</h4>
-		<EditForm OnValidSubmit="NewUserSubmittedAsync" FormName="CreationForm" Model="@NewUser">
+		<EditForm EditContext="@editContext" OnValidSubmit="NewUserSubmittedAsync" FormName="CreationForm">
 		<DataAnnotationsValidator/>
-		<ValidationSummary/>
+
 		<div class="form-group">
 			<label>Nachname:</label>
 			<InputText @bind-Value="@NewUser.LastName"/>
@@ -50,7 +51,12 @@
 			<label>Name/Kürzel:</label>
 			<InputText @bind-Value="@NewUser.Name" />
 		</div>
-			<button type="submit" class="btn btn-primary">create</button>
+			<button type="submit"
+				class="btn btn-primary">create</button>
 		</EditForm>
 	</div>
+	} else
+	{
+		<span>Lade Formular...</span>
+	}
 }

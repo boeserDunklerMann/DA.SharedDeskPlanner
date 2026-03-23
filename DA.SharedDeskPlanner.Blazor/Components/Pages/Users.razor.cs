@@ -2,6 +2,7 @@
 using DA.SharedDeskPlanner.WebAPI.Client.Api.User;
 using DA.SharedDeskPlanner.WebAPI.Client.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 
@@ -14,24 +15,24 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 	public partial class Users : ComponentBase, IDisposable
 	{
 		private ApiClient? apiClient;
+		private EditContext? editContext;
+
 		public bool Loading { get; private set; } = false;
 		/// <summary>
 		/// Usermodel for creating a new one
 		/// </summary>
-		//[SupplyParameterFromForm]
 		public Model.User NewUser { get; set; } = new();
-		//public string? NewUserLastname { get; set; }
-		//public string? NewUserFirstname { get; set; }
-		//public string? NewUserName { get; set; }
 		public List<User>? UserList { get; private set; }
 		protected override async Task OnInitializedAsync()
 		{
+			editContext = new EditContext(NewUser);
 			if (apiClient == null)	// TODO DA: das hier in eine Basisklasse auslagern
 			{
 				var authProvider = new AnonymousAuthenticationProvider();
 				var adapter = new HttpClientRequestAdapter(authProvider);
 				apiClient = new ApiClient(adapter);
 			}
+			
 			if (!Loading)
 			{
 				try
