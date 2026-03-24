@@ -11,13 +11,10 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 	/// <ChangeLog>
 	/// <Create Datum="04.03.2026" Entwickler="DA" />
 	/// <Change Datum="15.03.2026" Entwickler="DA">User creation</Change>
-		/// </ChangeLog>
-	public partial class Users : ComponentBase, IDisposable
+	/// <Change Datum="24.03.2026" Entwickler="DA">inherited from PageBase</Change>
+	/// </ChangeLog>
+	public partial class Users : IDisposable
 	{
-		private ApiClient? apiClient;
-		private EditContext? editContext;
-
-		public bool Loading { get; private set; } = false;
 		/// <summary>
 		/// Usermodel for creating a new one
 		/// </summary>
@@ -26,19 +23,14 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 		protected override async Task OnInitializedAsync()
 		{
 			editContext = new EditContext(NewUser);
-			if (apiClient == null)	// TODO DA: das hier in eine Basisklasse auslagern
-			{
-				var authProvider = new AnonymousAuthenticationProvider();
-				var adapter = new HttpClientRequestAdapter(authProvider);
-				apiClient = new ApiClient(adapter);
-			}
-			
+			await base.OnInitializedAsync();
+
 			if (!Loading)
 			{
 				try
 				{
 					Loading = true;
-					UserList = await apiClient.Api.User.GetAsync();
+					UserList = await apiClient!.Api.User.GetAsync();
 				}
 				finally
 				{

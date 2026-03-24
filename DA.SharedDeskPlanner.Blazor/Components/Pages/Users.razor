@@ -1,5 +1,6 @@
 ﻿@page "/Users"
 @inject NavigationManager navMgr
+@inherits PageBase
 
 <h3>Benutzer</h3>
 @{
@@ -30,7 +31,7 @@
 		</table>
 
 	}
-	@if (editContext != null)
+	@if (editContext != null && !Loading)
 	{
 	<div>
 	<h4>BenutzerIn anlegen</h4>
