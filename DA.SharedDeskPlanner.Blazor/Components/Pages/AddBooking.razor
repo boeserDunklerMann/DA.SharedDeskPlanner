@@ -1,11 +1,45 @@
-﻿@page "/AddBooking"
+﻿@rendermode InteractiveServer
+@page "/AddBooking"
+@using DA.SharedDeskPlanner.WebAPI.Client.Models
 @inject NavigationManager navMgr
 @inherits PageBase
 
-<h3>neue Buchung</h3>
-@if (editContext != null && !Loading)
+<h3>meine Buchungen</h3>
+@if (editContext != null && !Loading && UserList != null)
 {
-	
+	<label>Benutzer auswählen:</label>
+	<InputSelect class="form-select" ValueExpression="@(()=>SelectedUserID)" Value="@SelectedUserID" ValueChanged="@((int value)=>SelectUserAsync(value))">
+		@foreach (var user in UserList)
+		{
+			<option value="@user.Id">@user.Name</option>
+		}
+		</InputSelect>
+	<QuickGrid TGridItem="Booking" Items="UsersBookings">
+		<PropertyColumn Title="Beginn" Property="@(b => b.BookingStart)" Sortable="true"/>
+		<PropertyColumn Title="Ende" Property="@(b => b.BookingEnd)" Sortable="true" />
+		<TemplateColumn Title="Raum" Sortable="true" SortBy="@(GridSort<Booking>.ByAscending(b => GetRoomName(b)))">
+			@GetRoomName(context)
+		</TemplateColumn>
+		<PropertyColumn Title="Tisch" Property="@(b=>b.Desk!.Name)" Sortable="true"/>
+		<PropertyColumn Title="Zweck" Property="@(b=>b.Name)"/>
+	</QuickGrid>
+	<h4>Buchung anlegen</h4>
+	<EditForm EditContext="@editContext" FormName="CreationForm" OnValidSubmit="OnNewBookingValidSubmittedAsync">
+		<DataAnnotationsValidator />
+		<div class="form-group">
+			<label>Beginn:</label>
+			<InputDate @bind-Value="@NewBooking.BookingStart"/>
+			<br/>
+			<label>Ende:</label>
+			<InputDate @bind-Value="@NewBooking.BookingEnd"/>
+			<br/>
+			<label>Zweck:</label>
+			<InputText @bind-Value="@NewBooking.Name"/>
+			<br/>
+
+		</div>
+		<button type="submit" class="btn btn-primary" >erstellen</button>
+	</EditForm>
 }
 else
 {

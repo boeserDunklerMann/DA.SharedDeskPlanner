@@ -1,18 +1,72 @@
 ﻿using DA.SharedDeskPlanner.WebAPI.Client;
+using DA.SharedDeskPlanner.WebAPI.Client.Api.Booking;
+using DA.SharedDeskPlanner.WebAPI.Client.Models;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.EntityFrameworkCore;
 
 namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 {
 	/// <ChangeLog>
-	/// <Create Datum="24.03.2026" Entwickler="DA" />
+	/// <Create Datum="25.03.2026" Entwickler="DA" />
 	/// </ChangeLog>
 	public partial class AddBooking : IDisposable
 	{
-		public Model.Booking NewBooking { get; set; } = new();
+		public Booking NewBooking { get; set; } = new();
+		public IQueryable<User>? UserList { get; private set; }
+		public IQueryable<Room>? RoomsList { get; private set; }
+		public int SelectedUserID { get; set; }
+		public IQueryable<Booking>? UsersBookings { get; private set; }
 		protected override async Task OnInitializedAsync()
 		{
 			editContext = new EditContext(NewBooking);
 			await base.OnInitializedAsync();
+			if (!Loading && apiClient != null)
+			{
+				try
+				{
+					Loading = true;
+					UserList = (await apiClient.Api.User!.GetAsync())!.AsQueryable();
+					RoomsList = (await apiClient.Api.Room!.GetAsync())!.AsQueryable();
+					SelectedUserID = UserList.First().Id!.Value;
+				}
+				finally
+				{
+					Loading = false;
+				}
+			}
+		}
+
+		private async Task SelectUserAsync(int newUserID)
+		{
+			if (!Loading && apiClient != null)
+			{
+				SelectedUserID = newUserID;
+				var usersBookings = (await apiClient.Api.Booking.GetAsync())!.Where(b => b.User!.Id == SelectedUserID);
+				if (usersBookings != null)
+					UsersBookings = usersBookings.AsQueryable();
+				else
+					throw new ApplicationException(nameof(usersBookings));
+			}
+		}
+
+		private string GetRoomName(Booking b) => RoomsList?.Where(r => r.Desks!.Select(d => d.Id).Contains(b.Desk!.Id))?.FirstOrDefault()?.Name ?? "unbekannt";
+
+		private async Task OnNewBookingValidSubmittedAsync()
+		{
+			if (!Loading && apiClient != null && UserList != null)
+			{
+				try
+				{
+					Loading = true;
+					NewBooking.User = UserList.FirstOrDefault(u => u.Id == SelectedUserID);
+					var postBody = new BookingRequestBuilder.BookingPostRequestBody() { Booking = NewBooking };
+					await apiClient.Api.Booking.PostAsync(postBody);
+				}
+				finally
+				{
+					Loading = false;
+				}
+			}
 		}
 
 		public void Dispose()
