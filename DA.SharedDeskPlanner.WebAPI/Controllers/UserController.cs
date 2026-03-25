@@ -71,7 +71,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 		}
 		[HttpDelete]
 		[Route("{userID}")]
-		public async Task<IActionResult> DeleteUserAsync(int userID)
+		public async Task<IActionResult> DeleteUserAsync([FromRoute] int userID)
 		{
 			logger.LogInformation(nameof(DeleteUserAsync));
 			NullReferenceException.ThrowIfNull(context, nameof(context));

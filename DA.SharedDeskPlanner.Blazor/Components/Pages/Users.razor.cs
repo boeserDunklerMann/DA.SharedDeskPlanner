@@ -1,10 +1,6 @@
-﻿using DA.SharedDeskPlanner.WebAPI.Client;
-using DA.SharedDeskPlanner.WebAPI.Client.Api.User;
+﻿using DA.SharedDeskPlanner.WebAPI.Client.Api.User;
 using DA.SharedDeskPlanner.WebAPI.Client.Models;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 {
@@ -12,14 +8,15 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 	/// <Create Datum="04.03.2026" Entwickler="DA" />
 	/// <Change Datum="15.03.2026" Entwickler="DA">User creation</Change>
 	/// <Change Datum="24.03.2026" Entwickler="DA">inherited from PageBase</Change>
+	/// <Change Datum="25.03.2026" Entwickler="DA">DelUserAsync added</Change>
 	/// </ChangeLog>
 	public partial class Users : IDisposable
 	{
 		/// <summary>
 		/// Usermodel for creating a new one
 		/// </summary>
-		public Model.User NewUser { get; set; } = new();
-		public List<User>? UserList { get; private set; }
+		public Model.User NewUser { get; set; } = Model.BaseModel.Create<Model.User>();
+		public IQueryable<User>? UserList { get; private set; }
 		protected override async Task OnInitializedAsync()
 		{
 			editContext = new EditContext(NewUser);
@@ -30,7 +27,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				try
 				{
 					Loading = true;
-					UserList = await apiClient!.Api.User.GetAsync();
+					await LoadUsersAsync();
 				}
 				finally
 				{
@@ -59,6 +56,28 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 			}
 		}
 
+		private async Task DelUserAsync(User? user)
+		{
+			if (!Loading && user != null && user.Id != null)
+			{
+				try
+				{
+					Loading = true;
+					await apiClient!.Api.User[user.Id.Value].DeleteAsync();
+					await LoadUsersAsync();
+				}
+				finally
+				{
+					Loading = false;
+				}
+				navMgr.NavigateTo(nameof(Users), true);
+			}
+		}
+
+		private async Task LoadUsersAsync()
+		{
+			UserList = (await apiClient!.Api.User.GetAsync())!.AsQueryable();
+		}
 		public void Dispose()
 		{
 		}

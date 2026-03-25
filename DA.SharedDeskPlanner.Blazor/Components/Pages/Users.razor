@@ -1,35 +1,23 @@
-﻿@page "/Users"
+﻿@rendermode InteractiveServer
+@page "/Users"
 @inject NavigationManager navMgr
 @inherits PageBase
+@using Microsoft.AspNetCore.Components.QuickGrid
 
 <h3>Benutzer</h3>
 @{
 	if (!Loading)
 	{
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Vorname</th>
-					<th>Nachname</th>
-					<th>erstellt am</th>
-					<th>geändert am</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var user in UserList!)
-				{
-					<tr>
-						<td>@user.Name</td>
-						<td>@user.FirstName</td>
-						<td>@user.LastName</td>
-						<td>@user.CreationDate</td>
-						<td>@user.ChangeDate</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-
+		<QuickGrid TGridItem="DA.SharedDeskPlanner.WebAPI.Client.Models.User" Items="UserList">
+			<PropertyColumn Title="Name" Property="@(u=>u.Name)" Sortable="true"/>
+			<PropertyColumn Title="Vorname" Property="@(u=>u.FirstName)" Sortable="true" />
+			<PropertyColumn Title="Nachname" Property="@(u=>u.LastName)" Sortable="true" />
+			<PropertyColumn Title="erstellt am" Property="@(u=>u.CreationDate)" Sortable="true" />
+			<TemplateColumn Title="Actions" Context="user">
+				<input type="image" src="img/delete.png" width="15" height="15"
+					   @onclick="(a)=>DelUserAsync(user)" />
+			</TemplateColumn>
+		</QuickGrid>
 	}
 	@if (editContext != null && !Loading)
 	{

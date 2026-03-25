@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="10.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DA.SharedDeskPlanner.Model\DA.SharedDeskPlanner.Model.csproj" />
     <ProjectReference Include="..\DA.SharedDeskPlanner.WebAPI.Client\DA.SharedDeskPlanner.WebAPI.Client.csproj" />
   </ItemGroup>
