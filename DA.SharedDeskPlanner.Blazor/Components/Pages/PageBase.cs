@@ -16,6 +16,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 		protected EditContext? editContext;
 		protected List<Room>? Rooms { get; set; } = [];
 		protected List<User>? Users { get; set; } = [];
+		protected List<Desk>? Desks	{ get; set; } = [];
 
 		protected bool Loading { get; set; } = false;
 
@@ -29,6 +30,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				apiClient = new ApiClient(adapter);
 				Rooms = await apiClient.Api.Room.GetAsync();
 				Users = await apiClient.Api.User.GetAsync();
+				Desks = await apiClient.Api.Desk.GetAsync();
 			}
 		}
 	}

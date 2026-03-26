@@ -8,14 +8,15 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 {
 	/// <ChangeLog>
 	/// <Create Datum="25.03.2026" Entwickler="DA" />
-	/// </ChangeLog>
+	/// <Change Datum="26.03.2026" Entwickler="DA">BF Bookingslist</Change>
+		/// </ChangeLog>
 	public partial class AddBooking : IDisposable
 	{
 		public Booking NewBooking { get; set; } = new();
 		public IQueryable<User>? UserList { get; private set; }
 		public IQueryable<Room>? RoomsList { get; private set; }
 		public int SelectedUserID { get; set; }
-		public IQueryable<Booking>? UsersBookings { get; private set; }
+		public IQueryable<Booking>? UsersBookings { get; private set; } = Enumerable.Empty<Booking>().AsQueryable();
 		protected override async Task OnInitializedAsync()
 		{
 			editContext = new EditContext(NewBooking);
@@ -28,6 +29,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 					UserList = Users!.AsQueryable();
 					RoomsList = Rooms!.AsQueryable();
 					SelectedUserID = UserList.First().Id!.Value;
+					await LoadUsersBookings();
 				}
 				finally
 				{
@@ -41,16 +43,26 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 			if (!Loading && apiClient != null)
 			{
 				SelectedUserID = newUserID;
+				await LoadUsersBookings();
+			}
+		}
+
+		private async Task LoadUsersBookings()
+		{
+			if (apiClient != null)
+			{
 				var usersBookings = (await apiClient.Api.Booking.GetAsync())!.Where(b => b.UserId == SelectedUserID);
 				if (usersBookings != null)
 					UsersBookings = usersBookings.AsQueryable();
 				else
 					throw new ApplicationException(nameof(usersBookings));
 			}
+			else
+				throw new ApplicationException(nameof(apiClient));
 		}
 
 		private string GetRoomName(Booking b) => RoomsList?.Where(r => r.Desks!.Select(d => d.Id).Contains(b.DeskId))?.FirstOrDefault()?.Name ?? "unbekannt";
-
+		private string GetDeskName(Booking b) => Desks?.Where(d => d.Id == b.DeskId).FirstOrDefault()?.Name ?? "unbekannt";
 		private async Task OnNewBookingValidSubmittedAsync()
 		{
 			if (!Loading && apiClient != null && UserList != null)

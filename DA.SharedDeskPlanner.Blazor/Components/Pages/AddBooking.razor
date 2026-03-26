@@ -5,7 +5,7 @@
 @inherits PageBase
 
 <h3>meine Buchungen</h3>
-@if (editContext != null && !Loading && UserList != null)
+@if (editContext != null && !Loading && UserList != null && UsersBookings != null)
 {
 	<label>Benutzer auswählen:</label>
 	<InputSelect class="form-select" ValueExpression="@(()=>SelectedUserID)" Value="@SelectedUserID" ValueChanged="@((int value)=>SelectUserAsync(value))">
@@ -14,16 +14,16 @@
 			<option value="@user.Id">@user.Name</option>
 		}
 		</InputSelect>
-	<QuickGrid TGridItem="Booking" Items="UsersBookings">
+ 	<QuickGrid TGridItem="Booking" Items="UsersBookings">
 		<PropertyColumn Title="Beginn" Property="@(b => b.BookingStart)" Sortable="true"/>
 		<PropertyColumn Title="Ende" Property="@(b => b.BookingEnd)" Sortable="true" />
 		<TemplateColumn Title="Raum" Sortable="true" SortBy="@(GridSort<Booking>.ByAscending(b => GetRoomName(b)))">
 			@GetRoomName(context)
 		</TemplateColumn>
-		<PropertyColumn Title="Tisch" Property="@(b=>b.Desk!.Desk!.Name)" Sortable="true"/>
+		<PropertyColumn Title="Tisch" Property="@(b => GetDeskName(b))" Sortable="true" />
 		<PropertyColumn Title="Zweck" Property="@(b=>b.Name)"/>
 	</QuickGrid>
-	<h4>Buchung anlegen</h4>
+ 	<h4>Buchung anlegen</h4>
 	<EditForm EditContext="@editContext" FormName="CreationForm" OnValidSubmit="OnNewBookingValidSubmittedAsync">
 		<DataAnnotationsValidator />
 		<div class="form-group">
