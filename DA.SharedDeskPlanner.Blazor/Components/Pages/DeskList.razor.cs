@@ -1,17 +1,15 @@
-﻿using DA.SharedDeskPlanner.WebAPI.Client;
+﻿using DA.SharedDeskPlanner.Blazor.Components.Pages;
 using DA.SharedDeskPlanner.WebAPI.Client.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace DA.SharedDeskPlanner.Blazor.Pages
 {
-	public partial class DeskList_Code : ComponentBase, IDisposable
+	public partial class DeskList_Code : PageBase, IDisposable
 	{
-		private ApiClient? apiClient = null;
-		public bool Loading { get; set; } = false;
+		/// <ChangeLog>
+		/// <Create Datum="??.03.2026" Entwickler="DA" />
+		/// <Change Datum="26.03.2026" Entwickler="DA">did some simplyfying</Change>
+		/// </ChangeLog>
 		public List<Desk>? Desks { get; private set; }
-		public List<Room>? Rooms { get; private set; }
 		public List<Booking>? Bookings { get; private set; }
 		public void Dispose()
 		{
@@ -19,20 +17,14 @@ namespace DA.SharedDeskPlanner.Blazor.Pages
 
 		protected override async Task OnInitializedAsync()
 		{
-			if (apiClient == null)
-			{
-				var authProvider = new AnonymousAuthenticationProvider();
-				var adapter = new HttpClientRequestAdapter(authProvider);
-				apiClient = new ApiClient(adapter);
-			}
-			if (!Loading)
+			await base.OnInitializedAsync();
+			if (!Loading && apiClient != null)
 			{
 				try
 				{
 					Loading = true;
-					Desks = (await apiClient.Api.Desk.GetAsync())!.ToList();
-					Rooms = (await apiClient.Api.Room.GetAsync())!.ToList();
-					Bookings = (await apiClient.Api.Booking.GetAsync())!.ToList();
+					Desks = await apiClient.Api.Desk.GetAsync();
+					Bookings = await apiClient.Api.Booking.GetAsync();
 				}
 				finally
 				{

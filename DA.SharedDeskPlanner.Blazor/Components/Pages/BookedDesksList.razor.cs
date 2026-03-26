@@ -22,21 +22,10 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 					Loading = true;
 					var allBookings = await apiClient.Api.Booking.GetAsync();
 					var allDesks = await apiClient.Api.Desk.GetAsync();
-					Rooms = await apiClient.Api.Room.GetAsync();
-					Users = await apiClient.Api.User.GetAsync();
 					TodaysBookings = allBookings!.Where(b => b.BookingStart <= DateTime.UtcNow && b.BookingEnd >= DateTime.UtcNow).AsQueryable();
 					if (TodaysBookings == null)
 						throw new NullReferenceException(nameof(TodaysBookings));
 
-					//TodaysBookings.ToList().ForEach(b =>
-					//{
-					//	if (b.DeskId.HasValue && allDesks != null && allDesks.Count > 0)
-					//	{
-					//		Desk? desk = allDesks.FirstOrDefault(d => d.Id == b.DeskId);
-					//		if (desk != null)
-					//			BookedDesks!.Add(desk);
-					//	}
-					//});
 					BookedDesks!.AddRange(allDesks?.Where(d => TodaysBookings.Any(b => b.DeskId == d.Id)) ?? Array.Empty<Desk>());
 				}
 				finally

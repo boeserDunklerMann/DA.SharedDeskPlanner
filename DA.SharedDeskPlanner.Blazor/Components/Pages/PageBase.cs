@@ -27,8 +27,9 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				var httpClient = new HttpClient(new LoggingHandler { InnerHandler = new HttpClientHandler() });
 				var adapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
 				apiClient = new ApiClient(adapter);
+				Rooms = await apiClient.Api.Room.GetAsync();
+				Users = await apiClient.Api.User.GetAsync();
 			}
-			await Task.CompletedTask;
 		}
 	}
 }

@@ -25,8 +25,8 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				try
 				{
 					Loading = true;
-					UserList = (await apiClient.Api.User!.GetAsync())!.AsQueryable();
-					RoomsList = (await apiClient.Api.Room!.GetAsync())!.AsQueryable();
+					UserList = Users!.AsQueryable();
+					RoomsList = Rooms!.AsQueryable();
 					SelectedUserID = UserList.First().Id!.Value;
 				}
 				finally
