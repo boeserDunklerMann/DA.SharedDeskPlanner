@@ -17,6 +17,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 		public IQueryable<Room>? RoomsList { get; private set; }
 		public int SelectedUserID { get; set; }
 		public IQueryable<Booking>? UsersBookings { get; private set; } = Enumerable.Empty<Booking>().AsQueryable();
+		public int SelectedDeskID { get; set; }
 		protected override async Task OnInitializedAsync()
 		{
 			editContext = new EditContext(NewBooking);
@@ -38,6 +39,11 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 			}
 		}
 
+		private async Task SelectDeskAsync(int newDeskID)
+		{
+			SelectedDeskID = newDeskID;
+			await Task.CompletedTask;
+		}
 		private async Task SelectUserAsync(int newUserID)
 		{
 			if (!Loading && apiClient != null)
@@ -63,6 +69,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 
 		private string GetRoomName(Booking b) => RoomsList?.Where(r => r.Desks!.Select(d => d.Id).Contains(b.DeskId))?.FirstOrDefault()?.Name ?? "unbekannt";
 		private string GetDeskName(Booking b) => Desks?.Where(d => d.Id == b.DeskId).FirstOrDefault()?.Name ?? "unbekannt";
+		private string GetDeskName(Desk desk) => $"{desk.Name} im Raum: {Rooms?.FirstOrDefault(r => r.Desks!.Any(d => d.Id == desk.Id))?.Name ?? "unbekannt"}"; 
 		private async Task OnNewBookingValidSubmittedAsync()
 		{
 			if (!Loading && apiClient != null && UserList != null)
@@ -71,14 +78,13 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				{
 					Loading = true;
 					var postBody = new BookingRequestBuilder.BookingPostRequestBody() { Booking = new() };
-					//postBody.Booking.User = UserList.FirstOrDefault(u => u.Id == SelectedUserID);
 					postBody.Booking.User = null;
 					postBody.Booking.UserId = SelectedUserID;
 					postBody.Booking.Name = NewBooking.Name;
 					postBody.Booking.BookingStart = NewBooking.BookingStart;
 					postBody.Booking.BookingEnd = NewBooking.BookingEnd;
-					postBody.Booking.Desk = null;
-					postBody.Booking.DeskId = 1;
+					postBody.Booking.DeskId = SelectedDeskID;
+					// TODO DA: hier müssen wir checken, ob sich die Buchung nicht mit einer anderen überschneidet
 					await apiClient.Api.Booking.PostAsync(postBody);
 				}
 				catch(Exception e)

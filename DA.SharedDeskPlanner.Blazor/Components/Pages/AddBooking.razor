@@ -36,7 +36,13 @@
 			<label>Zweck:</label>
 			<InputText @bind-Value="@NewBooking.Name"/>
 			<br/>
-
+			<label>Schreibtisch:</label>
+			<InputSelect class="form-select" ValueExpression="@(()=>SelectedDeskID)" Value="@SelectedDeskID" ValueChanged="@((int value)=>SelectDeskAsync(value))">
+				@foreach(var desk in Desks!)
+				{
+					<option value="@desk.Id">@GetDeskName(desk)</option>
+				}
+			</InputSelect>
 		</div>
 		<button type="submit" class="btn btn-primary" >erstellen</button>
 	</EditForm>

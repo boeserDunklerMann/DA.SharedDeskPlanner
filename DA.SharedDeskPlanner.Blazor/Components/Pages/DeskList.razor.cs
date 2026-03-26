@@ -9,7 +9,7 @@ namespace DA.SharedDeskPlanner.Blazor.Pages
 		/// <Create Datum="??.03.2026" Entwickler="DA" />
 		/// <Change Datum="26.03.2026" Entwickler="DA">did some simplyfying</Change>
 		/// </ChangeLog>
-		public IQueryable<Desk>? Desks { get; private set; }
+		//public IQueryable<Desk>? Desks { get; private set; }
 		public List<Booking>? Bookings { get; private set; }
 		public void Dispose()
 		{
@@ -23,7 +23,7 @@ namespace DA.SharedDeskPlanner.Blazor.Pages
 				try
 				{
 					Loading = true;
-					Desks = (await apiClient.Api.Desk.GetAsync())!.AsQueryable();
+					//Desks = (await apiClient.Api.Desk.GetAsync())!.AsQueryable();
 					Bookings = await apiClient.Api.Booking.GetAsync();
 				}
 				finally

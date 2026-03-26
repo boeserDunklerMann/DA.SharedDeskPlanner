@@ -7,7 +7,7 @@
 @{
 	if (!Loading)
 	{
-		<QuickGrid TGridItem="Desk" Items="Desks">
+		<QuickGrid TGridItem="Desk" Items="Desks?.AsQueryable()">
 			<PropertyColumn	Title="Name" Property="@(d=>d.Name)"/>
 			<PropertyColumn Title="Raum" Property="@(d=>GetRoomByDesk(d)!.Name)"/>
 			<PropertyColumn Title="Bemerkung" Property="@(d=>d.Remarks)"></PropertyColumn>
