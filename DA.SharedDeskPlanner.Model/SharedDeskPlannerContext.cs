@@ -104,12 +104,21 @@ namespace DA.SharedDeskPlanner.Model
 			{
 				ent.HasKey(b => b.ID);
 				ent.Property(b => b.Name).IsRequired();
+				ent.Property(b => b.ChangeDate).HasConversion(
+					v => v.HasValue ? v.Value.UtcDateTime : (DateTime?)null,    // in die DB als UTC
+					v => new DateTimeOffset(v.HasValue ? v.Value : DateTime.MinValue, TimeSpan.Zero));	// aus der DB als Offset 0
 			});
+		}
+
+		protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+		{
+			configurationBuilder.Properties<DateTimeOffset>()
+				.HaveConversion<DateTimeOffsetToUtcConverter>();
 		}
 
 		private void UpdateChangeDate()
 		{
-			DateTime now = DateTime.UtcNow;
+			DateTimeOffset now = DateTime.UtcNow;
 			var createdEntries = ChangeTracker.Entries().Where(entry => entry.State == EntityState.Added).ToList();
 			var changedEntries = ChangeTracker.Entries().Where(entry => entry.State == EntityState.Modified).ToList();
 			createdEntries.ForEach(e =>

@@ -12,11 +12,11 @@ namespace DA.SharedDeskPlanner.Model.Contracts
 		/// <summary>
 		/// Änderungsdatum
 		/// </summary>
-		DateTime? ChangeDate { get; set; }
+		DateTimeOffset? ChangeDate { get; set; }
 
 		/// <summary>
 		/// Erstelldatum
 		/// </summary>
-		DateTime CreationDate { get; set; }
+		DateTimeOffset CreationDate { get; set; }
 	}
 }

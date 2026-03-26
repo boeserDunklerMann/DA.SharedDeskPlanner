@@ -16,12 +16,12 @@ namespace DA.SharedDeskPlanner.Model
 		/// <summary>
 		/// Änderungsdatum des Datensatzes
 		/// </summary>
-		public DateTime? ChangeDate { get; set; }
+		public DateTimeOffset? ChangeDate { get; set; }
 
 		/// <summary>
 		/// Erstelldatum
 		/// </summary>
-		public DateTime CreationDate { get; set; }
+		public DateTimeOffset CreationDate { get; set; }
 		public bool Deleted { get; set; }
 		public override string ToString()
 		{

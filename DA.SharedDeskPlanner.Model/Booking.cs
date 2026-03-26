@@ -12,8 +12,8 @@ namespace DA.SharedDeskPlanner.Model
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 	public class Booking : BaseModel
 	{
-		public DateTime BookingStart { get; set; }
-		public DateTime BookingEnd { get; set; }
+		public DateTimeOffset BookingStart { get; set; }
+		public DateTimeOffset BookingEnd { get; set; }
 
 		#region Overrides
 		public override bool Equals(object? obj)
@@ -30,7 +30,7 @@ namespace DA.SharedDeskPlanner.Model
 		public virtual User User { get; set; }
 		public virtual Desk Desk { get; set; }
 		[NotMapped]
-		public bool IsActive => (BookingStart < DateTime.UtcNow) && (BookingEnd > DateTime.UtcNow);
+		public bool IsActive => (BookingStart < DateTimeOffset.UtcNow) && (BookingEnd > DateTimeOffset.UtcNow);
 	}
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 }
