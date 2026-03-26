@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.Mvc;
+
 namespace DA.SharedDeskPlanner.WebAPI
 {
 	public class Program
@@ -31,7 +33,23 @@ namespace DA.SharedDeskPlanner.WebAPI
 					}
 					return Task.CompletedTask;
 				});
-			}); 
+			});
+			builder.Services.Configure<ApiBehaviorOptions>(options =>
+			{
+				options.InvalidModelStateResponseFactory = context =>
+				{
+					// Hier werden alle Binding-Fehler gesammelt
+					var errorMessages = context.ModelState.Values
+						.SelectMany(x => x.Errors)
+						.Select(x => x.ErrorMessage);
+
+					// Logge die Fehler manuell in die Konsole
+					Console.WriteLine("MODEL BINDING FAILED: " + string.Join(" | ", errorMessages));
+
+					return new BadRequestObjectResult(context.ModelState);
+				};
+			});
+
 			builder.Configuration.AddJsonFile("appsettings.local.json", false);  // there are some secrets which will not be committed to git
 
 			var app = builder.Build();

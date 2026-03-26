@@ -58,9 +58,20 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				try
 				{
 					Loading = true;
-					NewBooking.User = UserList.FirstOrDefault(u => u.Id == SelectedUserID);
-					var postBody = new BookingRequestBuilder.BookingPostRequestBody() { Booking = NewBooking };
+					var postBody = new BookingRequestBuilder.BookingPostRequestBody() { Booking = new() };
+					//postBody.Booking.User = UserList.FirstOrDefault(u => u.Id == SelectedUserID);
+					postBody.Booking.User = null;
+					postBody.Booking.Name = NewBooking.Name;
+					postBody.Booking.BookingStart = NewBooking.BookingStart;
+					postBody.Booking.BookingEnd = NewBooking.BookingEnd;
+					postBody.Booking.Desk = null;
 					await apiClient.Api.Booking.PostAsync(postBody);
+				}
+				catch(Exception e)
+				{
+					Console.WriteLine(e.Message);
+					if (e.InnerException != null)
+						Console.WriteLine(e.InnerException.Message);
 				}
 				finally
 				{

@@ -21,7 +21,8 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 			if (apiClient==null)
 			{
 				var authProvider = new AnonymousAuthenticationProvider();
-				var adapter = new HttpClientRequestAdapter(authProvider);
+				var httpClient = new HttpClient(new LoggingHandler { InnerHandler = new HttpClientHandler() });
+				var adapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
 				apiClient = new ApiClient(adapter);
 			}
 			await Task.CompletedTask;
