@@ -27,15 +27,15 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
         /// <summary>The desk property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk? Desk { get; set; }
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_desk? Desk { get; set; }
 #nullable restore
 #else
-        public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk Desk { get; set; }
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_desk Desk { get; set; }
 #endif
+        /// <summary>The deskId property</summary>
+        public int? DeskId { get; set; }
         /// <summary>The id property</summary>
         public int? Id { get; set; }
-        /// <summary>The isActive property</summary>
-        public bool? IsActive { get; set; }
         /// <summary>The name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -47,11 +47,13 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
         /// <summary>The user property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public global::DA.SharedDeskPlanner.WebAPI.Client.Models.User? User { get; set; }
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_user? User { get; set; }
 #nullable restore
 #else
-        public global::DA.SharedDeskPlanner.WebAPI.Client.Models.User User { get; set; }
+        public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_user User { get; set; }
 #endif
+        /// <summary>The userId property</summary>
+        public int? UserId { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking"/> and sets the default values.
         /// </summary>
@@ -82,11 +84,12 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
                 { "changeDate", n => { ChangeDate = n.GetDateTimeOffsetValue(); } },
                 { "creationDate", n => { CreationDate = n.GetDateTimeOffsetValue(); } },
                 { "deleted", n => { Deleted = n.GetBoolValue(); } },
-                { "desk", n => { Desk = n.GetObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk>(global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk.CreateFromDiscriminatorValue); } },
+                { "desk", n => { Desk = n.GetObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_desk>(global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_desk.CreateFromDiscriminatorValue); } },
+                { "deskId", n => { DeskId = n.GetIntValue(); } },
                 { "id", n => { Id = n.GetIntValue(); } },
-                { "isActive", n => { IsActive = n.GetBoolValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
-                { "user", n => { User = n.GetObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.User>(global::DA.SharedDeskPlanner.WebAPI.Client.Models.User.CreateFromDiscriminatorValue); } },
+                { "user", n => { User = n.GetObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_user>(global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_user.CreateFromDiscriminatorValue); } },
+                { "userId", n => { UserId = n.GetIntValue(); } },
             };
         }
         /// <summary>
@@ -101,12 +104,163 @@ namespace DA.SharedDeskPlanner.WebAPI.Client.Models
             writer.WriteDateTimeOffsetValue("changeDate", ChangeDate);
             writer.WriteDateTimeOffsetValue("creationDate", CreationDate);
             writer.WriteBoolValue("deleted", Deleted);
-            writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk>("desk", Desk);
+            writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_desk>("desk", Desk);
+            writer.WriteIntValue("deskId", DeskId);
             writer.WriteIntValue("id", Id);
-            writer.WriteBoolValue("isActive", IsActive);
             writer.WriteStringValue("name", Name);
-            writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.User>("user", User);
+            writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_user>("user", User);
+            writer.WriteIntValue("userId", UserId);
             writer.WriteAdditionalData(AdditionalData);
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_deskMember1"/>, <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk"/>
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class Booking_desk : IComposedTypeWrapper, IParsable
+        {
+            /// <summary>Composed type representation for type <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_deskMember1"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_deskMember1? BookingDeskMember1 { get; set; }
+#nullable restore
+#else
+            public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_deskMember1 BookingDeskMember1 { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk? Desk { get; set; }
+#nullable restore
+#else
+            public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk Desk { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_desk"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_desk CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+                var result = new global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_desk();
+                if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.BookingDeskMember1 = new global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_deskMember1();
+                }
+                else if("Desk".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Desk = new global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(BookingDeskMember1 != null)
+                {
+                    return BookingDeskMember1.GetFieldDeserializers();
+                }
+                else if(Desk != null)
+                {
+                    return Desk.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+                if(BookingDeskMember1 != null)
+                {
+                    writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_deskMember1>(null, BookingDeskMember1);
+                }
+                else if(Desk != null)
+                {
+                    writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Desk>(null, Desk);
+                }
+            }
+        }
+        /// <summary>
+        /// Composed type wrapper for classes <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_userMember1"/>, <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.User"/>
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
+        public partial class Booking_user : IComposedTypeWrapper, IParsable
+        {
+            /// <summary>Composed type representation for type <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_userMember1"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_userMember1? BookingUserMember1 { get; set; }
+#nullable restore
+#else
+            public global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_userMember1 BookingUserMember1 { get; set; }
+#endif
+            /// <summary>Composed type representation for type <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.User"/></summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+            public global::DA.SharedDeskPlanner.WebAPI.Client.Models.User? User { get; set; }
+#nullable restore
+#else
+            public global::DA.SharedDeskPlanner.WebAPI.Client.Models.User User { get; set; }
+#endif
+            /// <summary>
+            /// Creates a new instance of the appropriate class based on discriminator value
+            /// </summary>
+            /// <returns>A <see cref="global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_user"/></returns>
+            /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
+            public static global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_user CreateFromDiscriminatorValue(IParseNode parseNode)
+            {
+                if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
+                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
+                var result = new global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking.Booking_user();
+                if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.BookingUserMember1 = new global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_userMember1();
+                }
+                else if("User".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.User = new global::DA.SharedDeskPlanner.WebAPI.Client.Models.User();
+                }
+                return result;
+            }
+            /// <summary>
+            /// The deserialization information for the current model
+            /// </summary>
+            /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
+            public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
+            {
+                if(BookingUserMember1 != null)
+                {
+                    return BookingUserMember1.GetFieldDeserializers();
+                }
+                else if(User != null)
+                {
+                    return User.GetFieldDeserializers();
+                }
+                return new Dictionary<string, Action<IParseNode>>();
+            }
+            /// <summary>
+            /// Serializes information the current object
+            /// </summary>
+            /// <param name="writer">Serialization writer to use to serialize this model</param>
+            public virtual void Serialize(ISerializationWriter writer)
+            {
+                if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+                if(BookingUserMember1 != null)
+                {
+                    writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.Booking_userMember1>(null, BookingUserMember1);
+                }
+                else if(User != null)
+                {
+                    writer.WriteObjectValue<global::DA.SharedDeskPlanner.WebAPI.Client.Models.User>(null, User);
+                }
+            }
         }
     }
 }

@@ -20,7 +20,7 @@
 		<TemplateColumn Title="Raum" Sortable="true" SortBy="@(GridSort<Booking>.ByAscending(b => GetRoomName(b)))">
 			@GetRoomName(context)
 		</TemplateColumn>
-		<PropertyColumn Title="Tisch" Property="@(b=>b.Desk!.Name)" Sortable="true"/>
+		<PropertyColumn Title="Tisch" Property="@(b=>b.Desk!.Desk!.Name)" Sortable="true"/>
 		<PropertyColumn Title="Zweck" Property="@(b=>b.Name)"/>
 	</QuickGrid>
 	<h4>Buchung anlegen</h4>

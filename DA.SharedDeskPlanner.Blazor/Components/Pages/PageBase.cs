@@ -1,4 +1,5 @@
 ﻿using DA.SharedDeskPlanner.WebAPI.Client;
+using DA.SharedDeskPlanner.WebAPI.Client.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Kiota.Abstractions.Authentication;
@@ -13,6 +14,8 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 	{
 		protected ApiClient? apiClient;
 		protected EditContext? editContext;
+		protected List<Room>? Rooms { get; set; } = [];
+		protected List<User>? Users { get; set; } = [];
 
 		protected bool Loading { get; set; } = false;
 

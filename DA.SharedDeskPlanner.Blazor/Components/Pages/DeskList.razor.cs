@@ -50,7 +50,7 @@ namespace DA.SharedDeskPlanner.Blazor.Pages
 
 		public bool IsDeskBookedToday(Desk desk)
 		{
-			return Bookings!.Any(b => b.Desk!.Id == desk.Id && b.BookingStart < DateTime.UtcNow && b.BookingEnd > DateTime.UtcNow);
+			return Bookings!.Any(b => b.DeskId == desk.Id && b.BookingStart < DateTime.UtcNow && b.BookingEnd > DateTime.UtcNow);
 		}
 	}
 }

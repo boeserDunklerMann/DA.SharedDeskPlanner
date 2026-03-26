@@ -1,45 +1,43 @@
-﻿using DA.SharedDeskPlanner.WebAPI.Client;
-using DA.SharedDeskPlanner.WebAPI.Client.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Http.HttpClientLibrary;
+﻿using DA.SharedDeskPlanner.WebAPI.Client.Models;
 
 namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 {
 	/// <ChangeLog>
 	/// <Create Datum="04.03.2026" Entwickler="DA" />
 	/// </ChangeLog>
-	public partial class BookedDesksList : ComponentBase, IDisposable
+	public partial class BookedDesksList : IDisposable
 	{
-		private WebAPI.Client.ApiClient? apiClient;
-		public bool Loading { get; private set; } = false;
-		public List<Desk>? BookedDesks { get; private set; }
-		public List<Booking>? TodaysBookings { get; private set; }
-		public List<Room>? Rooms { get; private set; }
+		public List<Desk>? BookedDesks { get; private set; } = [];
+		public IQueryable<Booking>? TodaysBookings { get; private set; }
 		public void Dispose()
 		{
 		}
 		protected override async Task OnInitializedAsync()
 		{
-			if (apiClient == null)
-			{
-				var authProvider = new AnonymousAuthenticationProvider();
-				var adapter = new HttpClientRequestAdapter(authProvider);
-				apiClient = new ApiClient(adapter);
-			}
-			if (!Loading)
+			await base.OnInitializedAsync();
+			if (!Loading && apiClient != null)
 			{
 				try
 				{
 					Loading = true;
 					var allBookings = await apiClient.Api.Booking.GetAsync();
+					var allDesks = await apiClient.Api.Desk.GetAsync();
 					Rooms = await apiClient.Api.Room.GetAsync();
-					TodaysBookings = allBookings!.Where(b => b.BookingStart <= DateTime.UtcNow && b.BookingEnd >= DateTime.UtcNow).ToList();
+					Users = await apiClient.Api.User.GetAsync();
+					TodaysBookings = allBookings!.Where(b => b.BookingStart <= DateTime.UtcNow && b.BookingEnd >= DateTime.UtcNow).AsQueryable();
 					if (TodaysBookings == null)
 						throw new NullReferenceException(nameof(TodaysBookings));
 
-					BookedDesks = TodaysBookings
-						.Select(b => b.Desk).ToList()!;
+					//TodaysBookings.ToList().ForEach(b =>
+					//{
+					//	if (b.DeskId.HasValue && allDesks != null && allDesks.Count > 0)
+					//	{
+					//		Desk? desk = allDesks.FirstOrDefault(d => d.Id == b.DeskId);
+					//		if (desk != null)
+					//			BookedDesks!.Add(desk);
+					//	}
+					//});
+					BookedDesks!.AddRange(allDesks?.Where(d => TodaysBookings.Any(b => b.DeskId == d.Id)) ?? Array.Empty<Desk>());
 				}
 				finally
 				{
@@ -47,5 +45,13 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				}
 			}
 		}
+
+		private string? GetUsernameForBookedDesk(int deskID)
+			=> Users?.FirstOrDefault(u => u.Id == TodaysBookings?.FirstOrDefault(b => b.DeskId == deskID)?.UserId)?.Name ?? "";
+
+		private string? GetDesknameFromBooking(Booking booking) => BookedDesks!.FirstOrDefault(d => d.Id == booking.DeskId)?.Name ?? "";
+
+		private string? GetRoomnameFromBooking(Booking booking) => Rooms!.FirstOrDefault(r => r.Desks!.Any(d => d.Id == booking.DeskId))?.Name ?? "";
+
 	}
 }

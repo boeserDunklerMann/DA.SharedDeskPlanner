@@ -41,7 +41,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 			if (!Loading && apiClient != null)
 			{
 				SelectedUserID = newUserID;
-				var usersBookings = (await apiClient.Api.Booking.GetAsync())!.Where(b => b.User!.Id == SelectedUserID);
+				var usersBookings = (await apiClient.Api.Booking.GetAsync())!.Where(b => b.UserId == SelectedUserID);
 				if (usersBookings != null)
 					UsersBookings = usersBookings.AsQueryable();
 				else
@@ -49,7 +49,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 			}
 		}
 
-		private string GetRoomName(Booking b) => RoomsList?.Where(r => r.Desks!.Select(d => d.Id).Contains(b.Desk!.Id))?.FirstOrDefault()?.Name ?? "unbekannt";
+		private string GetRoomName(Booking b) => RoomsList?.Where(r => r.Desks!.Select(d => d.Id).Contains(b.DeskId))?.FirstOrDefault()?.Name ?? "unbekannt";
 
 		private async Task OnNewBookingValidSubmittedAsync()
 		{
@@ -61,10 +61,12 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 					var postBody = new BookingRequestBuilder.BookingPostRequestBody() { Booking = new() };
 					//postBody.Booking.User = UserList.FirstOrDefault(u => u.Id == SelectedUserID);
 					postBody.Booking.User = null;
+					postBody.Booking.UserId = SelectedUserID;
 					postBody.Booking.Name = NewBooking.Name;
 					postBody.Booking.BookingStart = NewBooking.BookingStart;
 					postBody.Booking.BookingEnd = NewBooking.BookingEnd;
 					postBody.Booking.Desk = null;
+					postBody.Booking.DeskId = 1;
 					await apiClient.Api.Booking.PostAsync(postBody);
 				}
 				catch(Exception e)

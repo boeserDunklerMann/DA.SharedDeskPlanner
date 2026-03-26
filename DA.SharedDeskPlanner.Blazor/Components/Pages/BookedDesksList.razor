@@ -1,34 +1,20 @@
 ﻿@page "/BookedDesksList"
+@using DA.SharedDeskPlanner.WebAPI.Client.Models
 @using Microsoft.AspNetCore.Components.Authorization
+@inherits PageBase
 
 <h3>Hausmeisteransicht</h3>
 @{
 	if (!Loading)
 	{
 		<h4>heute gebuchte Tische und Räume</h4>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Raum</th>
-					<th>von wem</th>
-					<th>gebucht von</th>
-					<th>gebucht bis</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var desk in BookedDesks!)
-				{
-					<tr>
-						<td>@desk.Name</td>
-						<td>@Rooms!.First(r => r.Desks!.Any(d => d.Id == desk.Id))?.Name</td>
-						<td>@TodaysBookings!.First(b=>b.Desk.Id==desk.Id)!.User.Name</td>
-						<td>@TodaysBookings!.First(b=>b.Desk.Id==desk.Id).BookingStart</td>
-						<td>@TodaysBookings!.First(b=>b.Desk.Id==desk.Id).BookingEnd</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-
+		<QuickGrid TGridItem="Booking" Items="TodaysBookings">
+			<PropertyColumn Title="Zweck" Property="@(b=>b.Name)"/>
+			<PropertyColumn Title="Schreibtisch" Property="@(b=>GetDesknameFromBooking(b))" />
+			<PropertyColumn Title="Raum" Property="@(b=>GetRoomnameFromBooking(b))" />
+			<PropertyColumn Title="von wem" Property="@(b=>GetUsernameForBookedDesk(b.DeskId.HasValue?b.DeskId.Value:0))" />
+			<PropertyColumn Title="gebucht von" Property="@(b=>b.BookingStart)" />
+			<PropertyColumn Title="gebucht bis" Property="@(b=>b.BookingEnd)" />
+		</QuickGrid>
 	}
 }
