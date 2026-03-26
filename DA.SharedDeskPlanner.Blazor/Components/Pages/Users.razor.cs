@@ -16,7 +16,7 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 		/// Usermodel for creating a new one
 		/// </summary>
 		public Model.User NewUser { get; set; } = Model.BaseModel.Create<Model.User>();
-		public IQueryable<User>? UserList { get; private set; }
+		//public IQueryable<User>? UserList { get; private set; }
 		protected override async Task OnInitializedAsync()
 		{
 			editContext = new EditContext(NewUser);
@@ -27,7 +27,6 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				try
 				{
 					Loading = true;
-					await LoadUsersAsync();
 				}
 				finally
 				{
@@ -64,7 +63,8 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				{
 					Loading = true;
 					await apiClient!.Api.User[user.Id.Value].DeleteAsync();
-					await LoadUsersAsync();
+					navMgr.NavigateTo(nameof(Users), true);
+					//await LoadUsersAsync();
 				}
 				finally
 				{
@@ -72,11 +72,6 @@ namespace DA.SharedDeskPlanner.Blazor.Components.Pages
 				}
 				navMgr.NavigateTo(nameof(Users), true);
 			}
-		}
-
-		private async Task LoadUsersAsync()
-		{
-			UserList = (await apiClient!.Api.User.GetAsync())!.AsQueryable();
 		}
 		public void Dispose()
 		{

@@ -7,7 +7,7 @@
 @{
 	if (!Loading)
 	{
-		<QuickGrid TGridItem="DA.SharedDeskPlanner.WebAPI.Client.Models.User" Items="UserList">
+		<QuickGrid TGridItem="DA.SharedDeskPlanner.WebAPI.Client.Models.User" Items="@Users!.AsQueryable()">
 			<PropertyColumn Title="Name" Property="@(u=>u.Name)" Sortable="true"/>
 			<PropertyColumn Title="Vorname" Property="@(u=>u.FirstName)" Sortable="true" />
 			<PropertyColumn Title="Nachname" Property="@(u=>u.LastName)" Sortable="true" />

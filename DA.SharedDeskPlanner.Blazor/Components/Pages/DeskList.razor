@@ -1,4 +1,5 @@
 ﻿@page "/DeskList"
+@using DA.SharedDeskPlanner.WebAPI.Client.Models
 @using Microsoft.AspNetCore.Components.Authorization
 @inherits DeskList_Code
 
@@ -6,26 +7,15 @@
 @{
 	if (!Loading)
 	{
-		<table class="table">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Raum</th>
-				<th>Bemerkung</th>
-				<th>heute gebucht</th>
-			</tr>
-		</thead>
-		<tbody>
-		@foreach(var desk in Desks!)
-				{
-					<tr>
-					<td>@desk.Name</td>
-					<td>@GetRoomByDesk(desk)?.Name</td>
-					<td>@desk.Remarks</td>
-					<td>@IsDeskBookedToday(desk)</td>
-					</tr>
-				}
-			</tbody>
-		</table>
+		<QuickGrid TGridItem="Desk" Items="Desks">
+			<PropertyColumn	Title="Name" Property="@(d=>d.Name)"/>
+			<PropertyColumn Title="Raum" Property="@(d=>GetRoomByDesk(d)!.Name)"/>
+			<PropertyColumn Title="Bemerkung" Property="@(d=>d.Remarks)"></PropertyColumn>
+			<PropertyColumn Title="heute gebucht" Property="@(d=>IsDeskBookedToday(d))" />
+		</QuickGrid>
+	}
+	else
+	{
+		<span>Lade Formular...</span>
 	}
 }
