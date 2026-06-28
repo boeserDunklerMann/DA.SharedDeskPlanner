@@ -8,6 +8,7 @@ namespace DA.SharedDeskPlanner.Model
 	/// <ChangeLog>
 	/// <Create Datum="18.02.2026" Entwickler="DA" />
 	/// <Change Datum="18.02.2026" Entwickler="DA">Bookings added</Change>
+	/// <Change Datum="28.06.2026" Entwickler="DA">default initializer added to Inventory and Bookings</Change>
 	/// </ChangeLog>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 	public class Desk : BaseModel
@@ -27,11 +28,11 @@ namespace DA.SharedDeskPlanner.Model
 			return ID.GetHashCode();
 		}
 		[JsonIgnore]
-		public virtual ICollection<InventoryItem>? Inventory { get; set; }
+		public virtual ICollection<InventoryItem> Inventory { get; set; } = [];
 		[JsonIgnore]
 		public virtual Room Room { get; set; }
 		[JsonIgnore]
-		public virtual ICollection<Booking> Bookings { get; set; }
+		public virtual ICollection<Booking> Bookings { get; set; } = [];
 	}
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. AD: Darum kümmert sich EFCore
 }

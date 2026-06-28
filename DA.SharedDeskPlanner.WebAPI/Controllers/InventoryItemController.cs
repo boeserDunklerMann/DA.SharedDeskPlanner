@@ -8,6 +8,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 {
 	/// <ChangeLog>
 	/// <Create Datum="20.02.2026" Entwickler="DA" />
+	/// <Change Datum="28.06.2026" Entwickler="DA">property Desk in InventoryItem removed</Change>
 	/// </ChangeLog>
 	[Route("api/[controller]")]
 	[ApiController]
@@ -37,7 +38,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 		{
 			NullReferenceException.ThrowIfNull(context, nameof(context));
 			item.ID = 0; // will be assigned by DB
-			item.Desk = null;   // Desk can be assigned in Update
+		//	item.Desk = null;   // Desk can be assigned in Update
 			await context.InventoryItems.AddAsync(item);
 			await context.SaveChangesAsync();
 			return Ok(item);
@@ -69,7 +70,7 @@ namespace DA.SharedDeskPlanner.WebAPI.Controllers
 			InventoryItem? itemFromDB = await context.InventoryItems.FirstOrDefaultAsync(i => i.ID == item.ID && !i.Deleted);
 			ObjectNotFoundException.ThrowIfNull(itemFromDB, nameof(InventoryItem), item.ID);
 			itemFromDB!.Name = item.Name;
-			itemFromDB.Desk= item.Desk;
+			//itemFromDB.Desk= item.Desk;
 			await context.SaveChangesAsync();
 			return Ok(item);
 		}

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DA.SharedDeskPlanner.Model\DA.SharedDeskPlanner.Model.csproj" />
+    <ProjectReference Include="..\DA.Wpf.Framework\DA.Wpf.Framework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="StammdatenControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>
